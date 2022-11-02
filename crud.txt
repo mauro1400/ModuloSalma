@@ -1,0 +1,8 @@
+php artisan crud:generate Reportea
+--fields="descripcion#string;
+" 
+--view-path=reporte 
+--controller-namespace=reporte 
+--route-group=reporte
+
+php artisan crud:generate Reportea --fields="descripcion#string;" --view-path=reporte --controller-namespace=reporte --route-group=reporte
