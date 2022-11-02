@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::resource('reporte/reportea', 'reporte\ReporteaController');
+Route::resource('reporte/reporteb', 'reporte\ReportebController');
+Route::resource('reporte/reportec', 'reporte\ReportecController');
