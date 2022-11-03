@@ -5,14 +5,29 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><b><h5>Reporte Certificados de Origen</h5></b></div>
+                <div class="card-header"><b>
+                        <h5>Reporte Certificados de Origen</h5>
+                    </b></div>
                 <div class="card-body">
                     <a href="{{ url('/reporte/reportea/create') }}" class="btn btn-success btn-sm" title="Add New Reportea">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                     </a>
+                    
+                    <form method="GET" action="{{ url('/reporte/busqueda') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                        <div class="container-fluid">
+                            <div class="input-group">
+                                <label for=""><b>Fecha Inicio:&nbsp</b></label>
+                                <input type="date" class="form-control me-2" name="fecha1" id="fecha1" value="{{ request('fecha1') }}">&nbsp
+                                <label for=""><b>Fecha Fin:&nbsp</b></label>
+                                <input type="date" class="form-control me-2" name="fecha2" id="fecha2" value="{{ request('fecha2') }}">&nbsp
+                                <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
+                                <a href="{{ url('/reporte/reportea') }}" class="btn btn-outline-danger">Borrar</a>
+                            </div>
+                        </div>
+                    </form>
                     <form method="GET" action="{{ url('/reporte/busquedaregional') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
-                        <label for="DataList" class="form-label"><b>Buscar Regional</b></label>
-                        <input type="text" class="form-control" list="opciones" id="DataList" name="regional" id="regional" placeholder="Buscar Regional..." value="{{ request('regional') }}">
+                        <label for="DataList" class="form-label"><b>Buscar Regional:&nbsp</b></label>
+                        <input type="text" class="form-control" list="opciones" id="DataList" name="regional" id="regional" placeholder="Buscar Regional..." value="{{ request('regional') }}">&nbsp
                         <datalist id="opciones">
                             <option value="REGIONAL COCHABAMBA">
                             <option value="DIRECCIÓN GENERAL EJECUTIVA">
@@ -20,18 +35,8 @@
                             <option value="REGIONAL SANTA CRUZ">
                             <option value="REGIONAL RIBERALTA">
                         </datalist>
-                        <button class="btn btn-outline-success" type="submit">Buscar</button>
-                        <a href="{{ url('/reporte/reportea') }}" class="btn btn-danger">Borrar</a>
-                    </form>
-                    <form method="GET" action="{{ url('/reporte/busqueda') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
-                        <div class="input-group">
-                            <label for=""><b>Fecha Inicio</b></label>
-                            <input type="date" class="form-control" name="fecha1" id="fecha1" value="{{ request('fecha1') }}">
-                            <label for=""><b>Fecha Fin</b></label>
-                            <input type="date" class="form-control" name="fecha2" id="fecha2" value="{{ request('fecha2') }}">
-                            <button class="btn btn-outline-success" type="submit">Buscar</button>
-                            <a href="{{ url('/reporte/reportea') }}" class="btn btn-danger">Borrar</a>
-                        </div>
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
+                        <a href="{{ url('/reporte/reportea') }}" class="btn btn-outline-danger">Borrar</a>
                     </form>
                     <br />
                     <br />
