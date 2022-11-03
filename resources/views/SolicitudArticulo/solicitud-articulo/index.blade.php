@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-header"><b><h5>Solicitud de Articulo</h5></b></div>
                 <div class="card-body">
-
                     <form method="GET" action="{{ url('/SolicitudArticulo/busquedacodigo') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">
                             <label for=""><b>Buscar Solicitud: </b></label>&nbsp

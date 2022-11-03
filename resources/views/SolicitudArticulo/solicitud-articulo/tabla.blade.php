@@ -27,10 +27,8 @@
             <td>{{ $item->updated_at }}</td>
             <td>{{ $item->observacion }}</td>
             <td>
-                @if($item->estado =="0")
+                @if($item->estado == "0")
                 <a href="{{ url('/SolicitudArticulo/solicitud-articulo/') }}" title="Edit SolicitudArticulo"><button class="btn btn-warning btn-sm"><i aria-hidden="true"></i>Pendiente</button></a>
-                @else
-                <a href="{{ url('/SolicitudArticulo/solicitud-articulo/') }}" title="Edit SolicitudArticulo"><button class="btn btn-success btn-sm"><i aria-hidden="true"></i>Aprobado</button></a>
                 @endif
             </td>
             <td>

@@ -32,3 +32,4 @@ Route::resource('reporte/reporteb', ReportebController::class);
 Route::get('reporte/busquedacodigo',[ReportebController::class,'busquedaCodigo']);
 ////////////////////////////////////////////////////////////
 Route::resource('reporte/reportec', ReportecController::class);
+Route::get('reporte/busquedapartida',[ReportecController::class,'busquedaPartida']);

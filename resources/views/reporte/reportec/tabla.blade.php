@@ -10,8 +10,8 @@
             <th>pedido</th>
             <th>entregado</th>
             <th>total_entregado</th>
-            <th>codigo</th>
-            <th>code</th>
+            <th>Codigo de Articulo</th>
+            <th>Partida</th>
             <th>created_at</th>
         </tr>
     </thead>
