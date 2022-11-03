@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Reporteb</div>
+                <div class="card-header"><b><h5>Reporte de Articulos</h5></b></div>
                 <div class="card-body">
                     <a href="{{ url('/reporte/reporteb/create') }}" class="btn btn-success btn-sm" title="Add New Reporteb">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New

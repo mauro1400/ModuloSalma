@@ -28,3 +28,4 @@ Route::get('reporte/busqueda',[ReporteaController::class,'busqueda']);
 Route::get('reporte/busquedaregional',[ReporteaController::class,'busquedaRegional']);
 
 Route::get('reporte/busquedacodigo',[ReportebController::class,'busquedaCodigo']);
+Route::resource('SolicitudArticulo/solicitud-articulo', 'SolicitudArticulo\SolicitudArticuloController');

@@ -1,12 +1,12 @@
-php artisan crud:generate Reportea
+php artisan crud:generate SolicitudArticulo
 --fields="descripcion#string;
 " 
---view-path=reporte 
---controller-namespace=reporte 
---route-group=reporte
+--view-path=SolicitudArticulo 
+--controller-namespace=SolicitudArticulo 
+--route-group=SolicitudArticulo
 
 php artisan crud:generate Reportea --fields="descripcion#string;" --view-path=reporte --controller-namespace=reporte --route-group=reporte
-
+php artisan crud:generate SolicitudArticulo --fields="descripcion#string;" --view-path=SolicitudArticulo --controller-namespace=SolicitudArticulo --route-group=SolicitudArticulo
 
 fecha_entrega	
 nro_solicitud	

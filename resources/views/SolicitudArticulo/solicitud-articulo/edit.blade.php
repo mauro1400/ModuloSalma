@@ -7,9 +7,9 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Edit Reportec #{{ $reportec->id }}</div>
+                    <div class="card-header">Edit SolicitudArticulo #{{ $solicitudarticulo->id }}</div>
                     <div class="card-body">
-                        <a href="{{ url('/reporte/reportec') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/SolicitudArticulo/solicitud-articulo') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -21,11 +21,11 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/reporte/reportec/' . $reportec->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/SolicitudArticulo/solicitud-articulo/' . $solicitudarticulo->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 
-                            @include ('reporte.reportec.form', ['formMode' => 'edit'])
+                            @include ('SolicitudArticulo.solicitud-articulo.form', ['formMode' => 'edit'])
 
                         </form>
 

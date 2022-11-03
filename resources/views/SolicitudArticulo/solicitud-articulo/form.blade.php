@@ -1,6 +1,6 @@
 <div class="form-group {{ $errors->has('descripcion') ? 'has-error' : ''}}">
     <label for="descripcion" class="control-label">{{ 'Descripcion' }}</label>
-    <input class="form-control" name="descripcion" type="text" id="descripcion" value="{{ isset($reportec->descripcion) ? $reportec->descripcion : ''}}" >
+    <input class="form-control" name="descripcion" type="text" id="descripcion" value="{{ isset($solicitudarticulo->descripcion) ? $solicitudarticulo->descripcion : ''}}" >
     {!! $errors->first('descripcion', '<p class="help-block">:message</p>') !!}
 </div>
 
