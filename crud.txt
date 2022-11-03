@@ -6,3 +6,18 @@ php artisan crud:generate Reportea
 --route-group=reporte
 
 php artisan crud:generate Reportea --fields="descripcion#string;" --view-path=reporte --controller-namespace=reporte --route-group=reporte
+
+
+fecha_entrega	
+nro_solicitud	
+solicitante	
+administrador	
+departamento	
+articulo	
+pedido	
+entregado	
+total_entregado	
+observacion	
+del	
+al	
+certificados

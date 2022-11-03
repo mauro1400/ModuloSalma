@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\reporte\ReporteaController;
+use App\Http\Controllers\reporte\ReportebController;
+use App\Http\Controllers\reporte\ReportecController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('reporte/reportea', 'reporte\ReporteaController');
-Route::resource('reporte/reporteb', 'reporte\ReportebController');
-Route::resource('reporte/reportec', 'reporte\ReportecController');
+Route::resource('reporte/reportea', ReporteaController::class);
+Route::resource('reporte/reporteb', ReportebController::class);
+Route::resource('reporte/reportec', ReportecController::class);

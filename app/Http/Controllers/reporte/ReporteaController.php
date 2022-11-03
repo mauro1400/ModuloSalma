@@ -7,6 +7,7 @@ use App\Http\Requests;
 
 use App\Models\Reportea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReporteaController extends Controller
 {
@@ -16,105 +17,32 @@ class ReporteaController extends Controller
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
-    {
-        $keyword = $request->get('search');
-        $perPage = 25;
-
-        if (!empty($keyword)) {
-            $reportea = Reportea::where('descripcion', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
-            $reportea = Reportea::latest()->paginate($perPage);
-        }
-
-        return view('reporte.reportea.index', compact('reportea'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('reporte.reportea.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
-    {
+    {   
+        $fecha1 = $request->get('fecha1');
+        $fecha2 = $request->get('fecha2');
+        $reportea = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
+            SELECT DATE(r.delivery_date) as fecha_entrega, r.nro_solicitud, u.name as solicitante,
+            u1.name as administrador, d.name as departamento, s.description as articulo, 
+            sq.amount as pedido, sq.amount_delivered as entregado, sq.total_delivered as total_entregado, 
+            sq.observacion, case (LENGTH(sq.observacion) - LENGTH(replace(sq.observacion, "-", ""))) / LENGTH("-") 
+                when 0 then sq.observacion
+                when 1 then SUBSTRING_INDEX(sq.observacion, "-", 1)
+                end del,
+            case (LENGTH(sq.observacion) - LENGTH(replace(sq.observacion, "-", ""))) / LENGTH("-") 
+            when 1 then SUBSTRING_INDEX(SUBSTRING_INDEX(sq.observacion, "-", 2), "-", -1)
+            end al
+            from requests r left join subarticle_requests sq on r.id=sq.request_id 
+            left join users u on r.user_id=u.id 
+            left join users u1 on r.admin_id=u1.id 
+            left join subarticles s on s.id=sq.subarticle_id 
+            left join departments d on d.id=u.department_id 
+            where sq.observacion is not null order by d.name, s.description)t
+            where t.al is not null AND (t.fecha_entrega BETWEEN :fecha1 AND :fecha2)', array(
+                'fecha1' => "$fecha1",
+                'fecha2' => "$fecha2"
+                ));
         
-        $requestData = $request->all();
-        
-        Reportea::create($requestData);
-
-        return redirect('reporte/reportea')->with('flash_message', 'Reportea added!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $reportea = Reportea::findOrFail($id);
-
-        return view('reporte.reportea.show', compact('reportea'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit($id)
-    {
-        $reportea = Reportea::findOrFail($id);
-
-        return view('reporte.reportea.edit', compact('reportea'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function update(Request $request, $id)
-    {
-        
-        $requestData = $request->all();
-        
-        $reportea = Reportea::findOrFail($id);
-        $reportea->update($requestData);
-
-        return redirect('reporte/reportea')->with('flash_message', 'Reportea updated!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($id)
-    {
-        Reportea::destroy($id);
-
-        return redirect('reporte/reportea')->with('flash_message', 'Reportea deleted!');
+            
+            return view('reporte.reportea.index', compact('reportea'));
     }
 }

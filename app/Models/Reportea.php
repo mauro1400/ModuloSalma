@@ -11,14 +11,14 @@ class Reportea extends Model
      *
      * @var string
      */
-    protected $table = 'reporteas';
+    protected $table = 'reportes';
 
     /**
     * The database primary key value.
     *
     * @var string
     */
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'fecha_entrega';
 
     /**
      * Attributes that should be mass-assignable.
