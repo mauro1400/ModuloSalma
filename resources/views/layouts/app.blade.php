@@ -28,8 +28,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                    
-                    <li><a class="nav-link" href="{{ url('/reporte/reportea') }}">Reporte Certificados de Origen</a></li>
+                    <li><a class="nav-link" href="{{ url('/reporte/reportea') }}"><b>|</b> Reporte Certificados de Origen</a></li>
+                    <li><a class="nav-link" href="{{ url('/reporte/reporteb') }}"><b>|</b> Reporte de Articulos</a></li>
+                    <li><a class="nav-link" href="{{ url('/reporte/reportec') }}"><b>|</b> Reporte ....</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

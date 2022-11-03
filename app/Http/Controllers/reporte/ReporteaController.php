@@ -88,5 +88,6 @@ class ReporteaController extends Controller
         
             $reportea['reportea']=$busqueda;
             return view('reporte.reportea.index', $reportea);
+            
     }    
 }

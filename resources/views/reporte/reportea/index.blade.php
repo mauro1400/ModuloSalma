@@ -12,7 +12,6 @@
                     <a href="{{ url('/reporte/reportea/create') }}" class="btn btn-success btn-sm" title="Add New Reportea">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                     </a>
-                    
                     <form method="GET" action="{{ url('/reporte/busqueda') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="container-fluid">
                             <div class="input-group">
@@ -30,56 +29,28 @@
                         <input type="text" class="form-control" list="opciones" id="DataList" name="regional" id="regional" placeholder="Buscar Regional..." value="{{ request('regional') }}">&nbsp
                         <datalist id="opciones">
                             <option value="REGIONAL COCHABAMBA">
-                            <option value="DIRECCIÓN GENERAL EJECUTIVA">
                             <option value="REGIONAL EL ALTO">
                             <option value="REGIONAL SANTA CRUZ">
                             <option value="REGIONAL RIBERALTA">
+                            <option value="REGIONAL LA PAZ">
+                            <option value="REGIONAL SUCRE">
+                            <option value="REGIONAL POTOSI">
+                            <option value="REGIONAL ORURO">
+                            <option value="REGIONAL TARIJA">
+                            <option value="UNIDAD DE SISTEMAS Y PLANIFICACION (USP)">
+                            <option value="UNIDAD ADMINISTRATIVA FINANCIERA (UAF)">
+                            <option value="UNIDAD DE CERTIFICACIÓN DE ORIGEN (UCO)">
+                            <option value="UNIDAD DE CONTROL LEGAL Y ASUNTOS JURIDICOS (UCLAJ)">
+                            <option value="DIRECCIÓN GENERAL EJECUTIVA">
                         </datalist>
                         <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
                         <a href="{{ url('/reporte/reportea') }}" class="btn btn-outline-danger">Borrar</a>
                     </form>
                     <br />
                     <br />
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Fecha de Entrega</th>
-                                <th>Nro Solicitud</th>
-                                <th>Solicitante Administrador</th>
-                                <th>Departamento</th>
-                                <th>Articulo</th>
-                                <th>Pedido</th>
-                                <th>Entregado</th>
-                                <th>Total</th>
-                                <th>Entregado</th>
-                                <th>Observacion</th>
-                                <th>Del</th>
-                                <th>Al</th>
-                                <th>Certificado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($reportea as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->fecha_entrega }}</td>
-                                <td>{{ $item->nro_solicitud }}</td>
-                                <td>{{ $item->solicitante }}</td>
-                                <td>{{ $item->administrador }}</td>
-                                <td>{{ $item->departamento }}</td>
-                                <td>{{ $item->articulo }}</td>
-                                <td>{{ $item->pedido }}</td>
-                                <td>{{ $item->entregado }}</td>
-                                <td>{{ $item->total_entregado }}</td>
-                                <td>{{ $item->observacion }}</td>
-                                <td>{{ $item->del }}</td>
-                                <td>{{ $item->al }}</td>
-                                <td>{{ $item->certificados }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                </div>
+                <div class="table-responsive">
+                    @include('reporte.reportea.tabla',$reportea)
                 </div>
             </div>
         </div>
