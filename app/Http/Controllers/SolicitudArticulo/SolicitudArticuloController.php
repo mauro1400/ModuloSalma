@@ -7,6 +7,7 @@ use App\Http\Requests;
 
 use App\Models\SolicitudArticulo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SolicitudArticuloController extends Controller
 {
@@ -15,106 +16,52 @@ class SolicitudArticuloController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $keyword = $request->get('search');
+        $solicitudarticulo = DB::table('subarticle_requests')
+                            ->join('requests','subarticle_requests.request_id','=','requests.id')   
+                            ->join('subarticles','subarticle_requests.subarticle_id','=','subarticles.id')
+                            ->select('subarticles.description','subarticles.unit','requests.nro_solicitud','subarticle_requests.*')
+                            ->simplePaginate(100);    
+        return view('SolicitudArticulo.solicitud-articulo.index',['solicitudarticulo'=>$solicitudarticulo]);
+    }
+
+    public function buscarSolicitud(Request $request)
+    {
+        $keyword = trim($request->get('search'));
         $perPage = 25;
-
-        if (!empty($keyword)) {
-            $solicitudarticulo = SolicitudArticulo::where('descripcion', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
-            $solicitudarticulo = SolicitudArticulo::latest()->paginate($perPage);
-        }
-
-        return view('SolicitudArticulo.solicitud-articulo.index', compact('solicitudarticulo'));
+        $solicitudarticulo = DB::table('subarticle_requests')
+                            ->join('requests','subarticle_requests.request_id','=','requests.id')   
+                            ->join('subarticles','subarticle_requests.subarticle_id','=','subarticles.id')
+                            ->select('subarticles.description','subarticles.unit','requests.nro_solicitud','subarticle_requests.*')
+                            ->where('nro_solicitud', 'LIKE', "$keyword")->simplePaginate($perPage);    
+        return view('SolicitudArticulo.solicitud-articulo.index',['solicitudarticulo'=>$solicitudarticulo]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('SolicitudArticulo.solicitud-articulo.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
-    {
-        
-        $requestData = $request->all();
-        
-        SolicitudArticulo::create($requestData);
-
-        return redirect('SolicitudArticulo/solicitud-articulo')->with('flash_message', 'SolicitudArticulo added!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $solicitudarticulo = SolicitudArticulo::findOrFail($id);
-
-        return view('SolicitudArticulo.solicitud-articulo.show', compact('solicitudarticulo'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
     public function edit($id)
     {
         $solicitudarticulo = SolicitudArticulo::findOrFail($id);
 
-        return view('SolicitudArticulo.solicitud-articulo.edit', compact('solicitudarticulo'));
+        return view('SolicitudArticulo.solicitud-articulo.edit', ['solicitudarticulo'=>$solicitudarticulo]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+    
+    public function estado($id){
+        $solicitudarticulo = SolicitudArticulo::findOrFail($id);
+        if($solicitudarticulo->estado == "0"):
+        $solicitudarticulo->estado = "1";
+        else:
+            $solicitudarticulo->estado= "0";
+        endif;
+        return view('SolicitudArticulo.solicitud-articulo.index',['solicitudarticulo'=>$solicitudarticulo]);
+    }
     public function update(Request $request, $id)
     {
         
         $requestData = $request->all();
-        
         $solicitudarticulo = SolicitudArticulo::findOrFail($id);
         $solicitudarticulo->update($requestData);
 
-        return redirect('SolicitudArticulo/solicitud-articulo')->with('flash_message', 'SolicitudArticulo updated!');
+        return redirect('SolicitudArticulo/solicitud-articulo');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($id)
-    {
-        SolicitudArticulo::destroy($id);
-
-        return redirect('SolicitudArticulo/solicitud-articulo')->with('flash_message', 'SolicitudArticulo deleted!');
-    }
 }

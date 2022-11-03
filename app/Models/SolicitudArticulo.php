@@ -11,7 +11,7 @@ class SolicitudArticulo extends Model
      *
      * @var string
      */
-    protected $table = 'solicitud_articulos';
+    protected $table = 'subarticle_requests';
 
     /**
     * The database primary key value.
@@ -25,7 +25,7 @@ class SolicitudArticulo extends Model
      *
      * @var array
      */
-    protected $fillable = ['descripcion'];
+    protected $fillable = ['id', 'subarticle_id', 'request_id', 'amount', 'amount_delivered', 'total_delivered', 'invalidate', 'observacion'];
 
     
 }

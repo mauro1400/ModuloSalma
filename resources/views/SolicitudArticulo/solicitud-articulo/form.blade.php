@@ -1,10 +1,10 @@
-<div class="form-group {{ $errors->has('descripcion') ? 'has-error' : ''}}">
-    <label for="descripcion" class="control-label">{{ 'Descripcion' }}</label>
-    <input class="form-control" name="descripcion" type="text" id="descripcion" value="{{ isset($solicitudarticulo->descripcion) ? $solicitudarticulo->descripcion : ''}}" >
-    {!! $errors->first('descripcion', '<p class="help-block">:message</p>') !!}
+
+<div class="form-group {{ $errors->has('amount') ? 'has-error' : ''}}">
+    <label for="amount" class="control-label">{{ 'Monto' }}</label>
+    <input class="form-control" name="amount" type="number" id="amount" value="{{ isset($solicitudarticulo->amount) ? $solicitudarticulo->amount : ''}}" >
+    {!! $errors->first('amount', '<p class="help-block">:message</p>') !!}
 </div>
-
-
+<br>
 <div class="form-group">
-    <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
+    <input class="btn btn-info" type="submit" value="{{ $formMode === 'edit' ? 'Actualizar' : 'Create' }}">
 </div>

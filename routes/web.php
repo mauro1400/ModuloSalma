@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\reporte\ReporteaController;
 use App\Http\Controllers\reporte\ReportebController;
 use App\Http\Controllers\reporte\ReportecController;
+use App\Http\Controllers\SolicitudArticulo\SolicitudArticuloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +21,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('SolicitudArticulo/solicitud-articulo', SolicitudArticuloController::class);
+Route::get('SolicitudArticulo/busquedacodigo',[SolicitudArticuloController::class,'buscarSolicitud']);
+////////////////////////////////////////////////////////////
 Route::resource('reporte/reportea', ReporteaController::class);
-Route::resource('reporte/reporteb', ReportebController::class);
-Route::resource('reporte/reportec', ReportecController::class);
-
 Route::get('reporte/busqueda',[ReporteaController::class,'busqueda']);
 Route::get('reporte/busquedaregional',[ReporteaController::class,'busquedaRegional']);
-
+////////////////////////////////////////////////////////////
+Route::resource('reporte/reporteb', ReportebController::class);
 Route::get('reporte/busquedacodigo',[ReportebController::class,'busquedaCodigo']);
-Route::resource('SolicitudArticulo/solicitud-articulo', 'SolicitudArticulo\SolicitudArticuloController');
+////////////////////////////////////////////////////////////
+Route::resource('reporte/reportec', ReportecController::class);

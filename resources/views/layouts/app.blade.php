@@ -31,6 +31,7 @@
                     <li><a class="nav-link" href="{{ url('/reporte/reportea') }}"><b>|</b> Reporte Certificados de Origen</a></li>
                     <li><a class="nav-link" href="{{ url('/reporte/reporteb') }}"><b>|</b> Reporte de Articulos</a></li>
                     <li><a class="nav-link" href="{{ url('/reporte/reportec') }}"><b>|</b> Reporte ....</a></li>
+                    <li><a class="nav-link" href="{{ url('/SolicitudArticulo/solicitud-articulo') }}"><b>|</b> Solicitud de Articulo</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
