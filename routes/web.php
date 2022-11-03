@@ -23,3 +23,6 @@ Route::get('/', function () {
 Route::resource('reporte/reportea', ReporteaController::class);
 Route::resource('reporte/reporteb', ReportebController::class);
 Route::resource('reporte/reportec', ReportecController::class);
+
+Route::get('reporte/busqueda',[ReporteaController::class,'busqueda']);
+Route::get('reporte/busquedaregional',[ReporteaController::class,'busquedaRegional']);
