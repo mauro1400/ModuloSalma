@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\reporte;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-
-use App\Models\Reportea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\ReporteaExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ReporteaController extends Controller
 {
-    public function index(){
-        $reportea= DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
-            SELECT DATE(r.delivery_date) as fecha_entrega, r.nro_solicitud, u.name as solicitante,
+    public function index()
+    {
+        $reportea = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
+            SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante,
             u1.name as administrador, d.name as departamento, s.description as articulo, 
             sq.amount as pedido, sq.amount_delivered as entregado, sq.total_delivered as total_entregado, 
             sq.observacion, case (LENGTH(sq.observacion) - LENGTH(replace(sq.observacion, "-", ""))) / LENGTH("-") 
@@ -30,15 +31,15 @@ class ReporteaController extends Controller
             left join departments d on d.id=u.department_id 
             where sq.observacion is not null order by d.name, s.description)t
             where t.al is not null');
-            return view('reporte.reportea.index', compact('reportea'));
+        return view('reporte.reportea.index', compact('reportea'));
     }
 
     public function busqueda(Request $request)
-    {   
+    {
         $fecha1 = $request->get('fecha1');
         $fecha2 = $request->get('fecha2');
         $busqueda = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
-            SELECT DATE(r.delivery_date) as fecha_entrega, r.nro_solicitud, u.name as solicitante,
+            SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante,
             u1.name as administrador, d.name as departamento, s.description as articulo, 
             sq.amount as pedido, sq.amount_delivered as entregado, sq.total_delivered as total_entregado, 
             sq.observacion, case (LENGTH(sq.observacion) - LENGTH(replace(sq.observacion, "-", ""))) / LENGTH("-") 
@@ -55,18 +56,18 @@ class ReporteaController extends Controller
             left join departments d on d.id=u.department_id 
             where sq.observacion is not null order by d.name, s.description)t
             where t.al is not null AND (t.fecha_entrega BETWEEN :fecha1 AND :fecha2)', array(
-                'fecha1' => "$fecha1",
-                'fecha2' => "$fecha2"
-                ));
-        
-            $reportea['reportea']=$busqueda;
-            return view('reporte.reportea.index', $reportea);
+            'fecha1' => "$fecha1",
+            'fecha2' => "$fecha2"
+        ));
+
+        $reportea['reportea'] = $busqueda;
+        return view('reporte.reportea.index', $reportea);
     }
     public function busquedaRegional(Request $request)
-    {   
+    {
         $regional = $request->get('regional');
         $busqueda = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
-            SELECT DATE(r.delivery_date) as fecha_entrega, r.nro_solicitud, u.name as solicitante,
+            SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante,
             u1.name as administrador, d.name as departamento, s.description as articulo, 
             sq.amount as pedido, sq.amount_delivered as entregado, sq.total_delivered as total_entregado, 
             sq.observacion, case (LENGTH(sq.observacion) - LENGTH(replace(sq.observacion, "-", ""))) / LENGTH("-") 
@@ -83,11 +84,17 @@ class ReporteaController extends Controller
             left join departments d on d.id=u.department_id 
             where sq.observacion is not null order by d.name, s.description)t
             where t.al is not null AND t.departamento LIKE :regional', array(
-                'regional' => "$regional"
-                ));
-        
-            $reportea['reportea']=$busqueda;
-            return view('reporte.reportea.index', $reportea);
-            
-    }    
+            'regional' => "$regional"
+        ));
+
+        $reportea['reportea'] = $busqueda;
+        return view('reporte.reportea.index', $reportea);
+    }
+    
+    public function export()
+    {
+        $hoy= now();
+        return Excel::download(new ReporteaExport, "reporte.$hoy.xlsx");
+    }
+
 }

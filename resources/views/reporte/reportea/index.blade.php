@@ -9,9 +9,8 @@
                         <h5>Reporte Certificados de Origen</h5>
                     </b></div>
                 <div class="card-body">
-                    <a href="{{ url('/reporte/reportea/create') }}" class="btn btn-success btn-sm" title="Add New Reportea">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                    </a>
+                    <a href="{{ url('/reporte/export') }}" class="btn btn-success btn-sm">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Exportar a Excel</a>
                     <form method="GET" action="{{ url('/reporte/busqueda') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="container-fluid">
                             <div class="input-group">

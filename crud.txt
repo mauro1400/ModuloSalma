@@ -21,3 +21,5 @@ observacion
 del	
 al	
 certificados
+
+php artisan make:export ReporteaExport --model=Reportea

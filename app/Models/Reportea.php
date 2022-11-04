@@ -18,7 +18,7 @@ class Reportea extends Model
     *
     * @var string
     */
-    protected $primaryKey = 'fecha_entrega';
+    protected $primaryKey = 'nro_solicitud';
 
     /**
      * Attributes that should be mass-assignable.

@@ -27,6 +27,8 @@ Route::get('SolicitudArticulo/busquedacodigo',[SolicitudArticuloController::clas
 Route::resource('reporte/reportea', ReporteaController::class);
 Route::get('reporte/busqueda',[ReporteaController::class,'busqueda']);
 Route::get('reporte/busquedaregional',[ReporteaController::class,'busquedaRegional']);
+Route::get('/reporte/export', [ReporteaController::class, 'export']); 
+
 ////////////////////////////////////////////////////////////
 Route::resource('reporte/reporteb', ReportebController::class);
 Route::get('reporte/busquedacodigo',[ReportebController::class,'busquedaCodigo']);

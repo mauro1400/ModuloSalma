@@ -48,4 +48,5 @@ class ReportecController extends Controller
         $reportec['reportec'] = $busqueda;
         return view('reporte.reportec.index', $reportec);
     }
+    
 }

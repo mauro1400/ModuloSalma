@@ -5,11 +5,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><b><h5>Reportec</h5></b></div>
+                <div class="card-header"><b>
+                        <h5>Reportec</h5>
+                    </b></div>
                 <div class="card-body">
-                    <a href="{{ url('/reporte/reportec/create') }}" class="btn btn-success btn-sm" title="Add New Reportec">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                    </a>
+                    <a href="{{ url('/reporte/export') }}" class="btn btn-success btn-sm">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Exportar a Excel</a>
 
                     <form method="GET" action="{{ url('/reporte/busquedapartida') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">

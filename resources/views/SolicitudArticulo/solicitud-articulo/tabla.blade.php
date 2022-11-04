@@ -27,12 +27,22 @@
             <td>{{ $item->updated_at }}</td>
             <td>{{ $item->observacion }}</td>
             <td>
+            
                 @if($item->estado == "0")
-                <a href="{{ url('/SolicitudArticulo/solicitud-articulo/') }}" title="Edit SolicitudArticulo"><button class="btn btn-warning btn-sm"><i aria-hidden="true"></i>Pendiente</button></a>
+              
+                <a href="{{ url('/SolicitudArticulo/articulo') }}" title="Edit SolicitudArticulo" class="btn btn-warning btn-sm" role="button" aria-hidden="true">Pendiente</a>
+                @elseif($item->estado == "1")
+                <a href="{{ url('/SolicitudArticulo/solicitud-articulo') }}" title="Edit SolicitudArticulo" class="btn btn-success btn-sm disabled" tabindex="-1" role="button" aria-hidden="true">Aprobado</a>
+                @else
                 @endif
             </td>
             <td>
-                <a href="{{ url('/SolicitudArticulo/solicitud-articulo/' . $item->id . '/edit') }}" title="Edit SolicitudArticulo"><button class="btn btn-warning btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
+                @if($item->estado == "0" or $item->estado == null)
+                <a href="{{ url('/SolicitudArticulo/solicitud-articulo/' . $item->id . '/edit') }}" title="Edit SolicitudArticulo" class="btn btn-warning btn-sm" role="button" aria-hidden="true"><i class="fa fa-pencil-square-o"></i> Editar</a>
+                @elseif($item->estado == "1")
+                <a href="{{ url('/SolicitudArticulo/solicitud-articulo/' . $item->id . '/edit') }}" title="Edit SolicitudArticulo" class="btn btn-warning btn-sm disabled" tabindex="-1" role="button" aria-hidden="true" ><i class="fa fa-pencil-square-o" ></i> Editar</a>
+                @else
+                @endif
             </td>
         </tr>
         @endforeach
