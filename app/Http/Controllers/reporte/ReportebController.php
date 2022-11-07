@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Models\Reporteb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\ReportebExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportebController extends Controller
 {
@@ -156,5 +158,10 @@ class ReportebController extends Controller
         ));
         $reporteb['reporteb']=$busqueda;
             return view('reporte.reporteb.index', $reporteb);
+    }
+    public function export()
+    {
+        $hoy= now();
+        return Excel::download(new ReportebExport, "reporte.$hoy.xlsx");
     }
 }

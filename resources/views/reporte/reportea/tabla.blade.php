@@ -6,7 +6,7 @@
             <th>Solicitante Administrador</th>
             <th>Departamento</th>
             <th>Articulo</th>
-            <th>Pedido</th>
+            <th>Block Certificado</th>
             <th>Entregado</th>
             <th>Total</th>
             <th>Entregado</th>

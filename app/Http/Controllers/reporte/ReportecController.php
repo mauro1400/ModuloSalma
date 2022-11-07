@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Models\Reportec;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\ReporteaExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportecController extends Controller
 {
@@ -48,5 +50,9 @@ class ReportecController extends Controller
         $reportec['reportec'] = $busqueda;
         return view('reporte.reportec.index', $reportec);
     }
-    
+    public function export()
+    {
+        $hoy= now();
+        return Excel::download(new ReporteaExport, "reporte.$hoy.xlsx");
+    }
 }

@@ -27,11 +27,13 @@ Route::get('SolicitudArticulo/busquedacodigo',[SolicitudArticuloController::clas
 Route::resource('reporte/reportea', ReporteaController::class);
 Route::get('reporte/busqueda',[ReporteaController::class,'busqueda']);
 Route::get('reporte/busquedaregional',[ReporteaController::class,'busquedaRegional']);
-Route::get('/reporte/export', [ReporteaController::class, 'export']); 
+Route::get('/reportea/export', [ReporteaController::class, 'export']); 
 
 ////////////////////////////////////////////////////////////
 Route::resource('reporte/reporteb', ReportebController::class);
 Route::get('reporte/busquedacodigo',[ReportebController::class,'busquedaCodigo']);
+Route::get('/reporteb/export', [ReportebController::class, 'export']); 
 ////////////////////////////////////////////////////////////
 Route::resource('reporte/reportec', ReportecController::class);
 Route::get('reporte/busquedapartida',[ReportecController::class,'busquedaPartida']);
+Route::get('/reportec/export', [ReportecController::class, 'export']); 

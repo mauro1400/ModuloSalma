@@ -22,4 +22,4 @@ del
 al	
 certificados
 
-php artisan make:export ReporteaExport --model=Reportea
+php artisan make:export ReportecExport 
