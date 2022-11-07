@@ -11,7 +11,7 @@ class Reportec extends Model
      *
      * @var string
      */
-    protected $table = 'reportecs';
+    protected $table = 'requests';
 
     /**
     * The database primary key value.

@@ -11,21 +11,37 @@ class Reporteb extends Model
      *
      * @var string
      */
-    protected $table = 'reportebs';
+    protected $table = 'report';
 
     /**
     * The database primary key value.
     *
     * @var string
     */
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'codigo';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['descripcion'];
+    protected $fillable = ['codigo,
+    cod_ant,
+    description,
+    uni_med,
+    partida,
+    num_fac,
+    detalle,
+    precio_u,
+    fecha_e,
+    fecha_e2,
+    fecha_s,
+    ingreso,
+    egreso,
+    saldo,
+    ingreso_e,
+    egreso_e,
+    saldo_e']; 
 
     
 }

@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Models\Reportec;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Exports\ReporteaExport;
+use App\Exports\ReportecExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportecController extends Controller
@@ -53,6 +53,6 @@ class ReportecController extends Controller
     public function export()
     {
         $hoy= now();
-        return Excel::download(new ReporteaExport, "reporte.$hoy.xlsx");
+        return Excel::download(new ReportecExport, "reporte.$hoy.xlsx");
     }
 }
