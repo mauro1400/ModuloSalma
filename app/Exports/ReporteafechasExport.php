@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ReporteaExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
+class ReporteafechasExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
 {
     use Exportable;
     public function headings(): array
@@ -38,14 +38,15 @@ class ReporteaExport implements FromCollection, ShouldAutoSize, WithHeadings, Wi
             1    => ['font' => ['bold' => true]],
         ];
     }
-    public function dato($regional)
+    public function dato($fecha1, $fecha2 )
     {
-        $this->regional = $regional;
+        $this->fecha1 = $fecha1;
+        $this->fecha2 = $fecha2;
         return $this;
     }
     public function collection()
     {
-        $busquedaRegional = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
+        $busquedafechas = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
             SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante,
             u1.name as administrador, d.name as departamento, s.description as articulo, 
             sq.amount as pedido, sq.amount_delivered as entregado, sq.total_delivered as total_entregado, 
@@ -62,9 +63,10 @@ class ReporteaExport implements FromCollection, ShouldAutoSize, WithHeadings, Wi
             left join subarticles s on s.id=sq.subarticle_id 
             left join departments d on d.id=u.department_id 
             where sq.observacion is not null order by d.name, s.description)t
-            where t.al is not null AND t.departamento LIKE :regional', array(
-            'regional' => "$this->regional"
+            where t.al is not null AND date(t.fecha_entrega) BETWEEN :fecha1 AND :fecha2', array(
+            'fecha1' => "$this->fecha1",
+            'fecha2' => "$this->fecha2"
         ));
-        return collect($busquedaRegional);
+        return collect($busquedafechas);
     }
 }

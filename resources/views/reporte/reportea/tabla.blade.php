@@ -3,13 +3,13 @@
         <tr>
             <th>Fecha de Entrega</th>
             <th>Nro Solicitud</th>
-            <th>Solicitante Administrador</th>
+            <th>Solicitante </th>
+            <th>Administrador</th>
             <th>Departamento</th>
             <th>Articulo</th>
             <th>Block Certificado</th>
             <th>Entregado</th>
-            <th>Total</th>
-            <th>Entregado</th>
+            <th>Total Entregado</th>
             <th>Observacion</th>
             <th>Del</th>
             <th>Al</th>
@@ -31,7 +31,7 @@
             <td>{{ $item->observacion }}</td>
             <td>{{ $item->del }}</td>
             <td>{{ $item->al }}</td>
-            <td>{{ $item->certificados }}</td>
+            <td>{{ $item->certificados}}</td>
         </tr>
         @endforeach
     </tbody>
