@@ -1,18 +1,18 @@
 <table class="table">
     <thead class="table-dark">
         <tr>
-            <th>fecha_entrega</th>
-            <th>nro_solicitud</th>
-            <th>solicitante</th>
-            <th>administrador</th>
-            <th>departamento</th>
-            <th>articulo</th>
-            <th>pedido</th>
-            <th>entregado</th>
-            <th>total_entregado</th>
+            <th>Fecha Entrega</th>
+            <th>nNumero Solicitud</th>
+            <th>Solicitante</th>
+            <th>Administrador</th>
+            <th>Departamento</th>
+            <th>Articulo</th>
+            <th>Pedido</th>
+            <th>Entregado</th>
+            <th>Total Entregado</th>
             <th>Codigo de Articulo</th>
             <th>Partida</th>
-            <th>created_at</th>
+            <th>Creado el</th>
         </tr>
     </thead>
     <tbody>

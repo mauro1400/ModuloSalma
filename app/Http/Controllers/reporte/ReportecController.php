@@ -53,6 +53,7 @@ class ReportecController extends Controller
     public function export()
     {
         $hoy= now();
-        return Excel::download(new ReportecExport, "reporte.$hoy.xlsx");
+        return (new ReportecExport)->dato("32200")->download("reporte.$hoy.xlsx");
+        //return Excel::download(new ReportecExport, "reporte.$hoy.xlsx");
     }
 }

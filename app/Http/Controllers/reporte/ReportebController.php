@@ -162,6 +162,7 @@ class ReportebController extends Controller
     public function export()
     {
         $hoy= now();
-        return Excel::download(new ReportebExport, "reporte.$hoy.xlsx");
+        return (new ReportebExport)->dato("256001")->download("reporte.$hoy.xlsx");
+        //return Excel::download(new ReportebExport, "reporte.$hoy.xlsx");
     }
 }
