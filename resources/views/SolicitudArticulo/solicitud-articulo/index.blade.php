@@ -10,7 +10,7 @@
                     <form method="GET" action="{{ url('/SolicitudArticulo/busquedacodigo') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">
                             <label for=""><b>Buscar Solicitud: </b></label>&nbsp
-                            <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">&nbsp
+                            <input type="text" class="form-control" name="search" placeholder="Buscar..." value="{{ request('search') }}">&nbsp
                             <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
                             <a href="{{ url('/SolicitudArticulo/solicitud-articulo') }}" class="btn btn-outline-danger">Borrar</a>
                         </div>
