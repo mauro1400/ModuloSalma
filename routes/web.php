@@ -23,6 +23,9 @@ Route::get('/', function () {
 
 Route::resource('SolicitudArticulo/solicitud-articulo', SolicitudArticuloController::class);
 Route::get('SolicitudArticulo/busquedacodigo',[SolicitudArticuloController::class,'buscarSolicitud']);
+Route::get('/aprovado/{id}',[SolicitudArticuloController::class,'aprobado'])->name('SolicitudArticulo.aprobado');
+Route::get('/pendiente/{id}',[SolicitudArticuloController::class,'pendiente'])->name('SolicitudArticulo.pendiente');
+
 ////////////////////////////////////////////////////////////
 Route::resource('reporte/reportea', ReporteaController::class);
 Route::get('reporte/busqueda',[ReporteaController::class,'busqueda']);

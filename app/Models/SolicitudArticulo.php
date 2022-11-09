@@ -25,7 +25,7 @@ class SolicitudArticulo extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'subarticle_id', 'request_id', 'amount', 'amount_delivered', 'total_delivered', 'invalidate', 'observacion'];
+    protected $fillable = ['id', 'subarticle_id', 'request_id', 'amount', 'amount_delivered', 'total_delivered', 'invalidate', 'observacion','estado'];
 
     
 }

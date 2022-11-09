@@ -57,10 +57,17 @@ class SolicitudArticuloController extends Controller
         return redirect('SolicitudArticulo/solicitud-articulo');
     }
     
-    public function estado()
+    public function aprobado($id)
     {
-        $solicitudarticulo = SolicitudArticulo::find(1522);
-        $solicitudarticulo->estado= '1';
+        $solicitudarticulo = SolicitudArticulo::findOrFail($id);
+        $solicitudarticulo->estado=1;
+        $solicitudarticulo->save();
+        return redirect('SolicitudArticulo/solicitud-articulo');
+    }
+    public function pendiente($id)
+    {
+        $solicitudarticulo = SolicitudArticulo::findOrFail($id);
+        $solicitudarticulo->estado= 0;
         $solicitudarticulo->save();
         return redirect('SolicitudArticulo/solicitud-articulo');
     }

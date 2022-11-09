@@ -30,9 +30,9 @@
             
                 @if($item->estado == "0")
               
-                <a href="{{ url('/SolicitudArticulo/articulo') }}" title="Edit SolicitudArticulo" class="btn btn-warning btn-sm" role="button" aria-hidden="true">Pendiente</a>
+                <a href="{{ route('SolicitudArticulo.aprobado',$item->id) }}" class="btn btn-warning btn-sm" role="button" aria-hidden="true">Pendiente</a>
                 @elseif($item->estado == "1")
-                <a href="{{ url('/SolicitudArticulo/solicitud-articulo') }}" title="Edit SolicitudArticulo" class="btn btn-success btn-sm disabled" tabindex="-1" role="button" aria-hidden="true">Aprobado</a>
+                <a href="{{ route('SolicitudArticulo.pendiente',$item->id) }}" class="btn btn-success btn-sm disabled" tabindex="-1" role="button" aria-hidden="true">Aprobado</a>
                 @else
                 @endif
             </td>
