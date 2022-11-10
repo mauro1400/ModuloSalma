@@ -17,7 +17,7 @@ class ReportecExport implements FromCollection, ShouldAutoSize, WithHeadings, Wi
     {
         return [
             'Fecha Entrega',
-            'nNumero Solicitud',
+            'Numero Solicitud',
             'Solicitante',
             'Administrador',
             'Departamento',

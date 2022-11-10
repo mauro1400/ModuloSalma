@@ -29,9 +29,9 @@ class ReportecController extends Controller
         order by DATE(r.created_at), s.code, s.description');
         return view('reporte.reportec.index', compact('reportec'));
     }
-    public function busquedaPartida(Request $request)
+    public function busquedaPartida()
     {
-        $partida = $request->get('partida');
+        $partida = request('partida');
         $busqueda = DB::select('SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante, 
         u1.name as administrador, d.name as departamento, s.description as articulo, sq.amount as pedido, 
         sq.amount_delivered as entregado, sq.total_delivered as total_entregado, s.code as codigo, m.code,r.created_at
@@ -52,8 +52,9 @@ class ReportecController extends Controller
     }
     public function export()
     {
-        $hoy= now();
-        return (new ReportecExport)->dato("32200")->download("reporte.$hoy.xlsx");
+        $hoy = now();
+        $partida = request('partida');
+        return (new ReportecExport)->dato($partida)->download("reporte.$hoy.xlsx");
         //return Excel::download(new ReportecExport, "reporte.$hoy.xlsx");
     }
 }

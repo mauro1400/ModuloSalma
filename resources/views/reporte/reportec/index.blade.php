@@ -9,18 +9,16 @@
                         <h5>Reportec</h5>
                     </b></div>
                 <div class="card-body">
-                    <a href="{{ url('/reportec/export') }}" class="btn btn-success btn-sm">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Exportar a Excel</a>
-
-                    <form method="GET" action="{{ url('/reporte/busquedapartida') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                    <form action ="{{ route('reporte.busquedaPartida') }}" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">
                             <label for=""><b>Buscar Partida: </b></label>&nbsp
                             <input type="text" class="form-control" name="partida" placeholder="Buscar Partida..." value="{{ request('partida') }}">&nbsp
                             <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
-                            <a href="{{ url('/reporte/reportec') }}" class="btn btn-outline-danger">Borrar</a>
+                            <a href="{{ url('/reporte/reportec') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
                         </div>
                     </form>
-
+                    <a href="{{ url('/reporte/export?partida=' . request('partida')) }}" class="btn btn-outline-success"><i class="fa fa-plus" aria-hidden="true">&nbsp</i>Exportar</a>&nbsp
+                    
                     <br />
                     <br />
                 </div>
