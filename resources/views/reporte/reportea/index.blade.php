@@ -9,8 +9,8 @@
                         <h5>Reporte Certificados de Origen</h5>
                     </b></div>
                 <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-7">
+                    <div class="row justify-content-center">
+                        <div class="col-7-fluid">
 
                             <form method="GET" action="{{ url('/reporte/busqueda') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                                 <div class="input-group">
@@ -22,11 +22,11 @@
                                     <a href="{{ url('/reporte/reportea') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
 
                                 </div>
+                                <a href="{{ url('/reportea/exportf?fecha1=' . request('fecha1') . '&fecha2=' . request('fecha2')) }}" class="btn btn-outline-success">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                             </form>
-                            <a href="{{ url('/reportea/exportf?fecha1=' . request('fecha1') . '&fecha2=' . request('fecha2')) }}" class="btn btn-outline-success">
-                                <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                         </div>
-                        <div class="col-5">
+                        <div class="col-5-ms-auto-fluid">
                             <form method="GET" action="{{ url('/reporte/busquedaregional') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                                 <div class="input-group">
                                     <label for="DataList" class="form-label"><b>Buscar Regional:&nbsp</b></label>
@@ -50,9 +50,9 @@
                                     <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
                                     <a href="{{ url('/reporte/reportea') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
                                 </div>
+                                <a href="{{ url('/reportea/exportr?regional=' . request('regional')) }}" class="btn btn-outline-success">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                             </form>
-                            <a href="{{ url('/reportea/exportr?regional=' . request('regional')) }}" class="btn btn-outline-success">
-                                <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                         </div>
                     </div>
                 </div>
