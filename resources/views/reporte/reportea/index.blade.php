@@ -23,9 +23,8 @@
 
                                 </div>
                             </form>
-                            <form action="{{ url('/reportea/export') }}">
-                                <button class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>Exportar</button>
-                            </form>
+                            <a href="{{ url('/reportea/exportf?fecha1=' . request('fecha1') . '&fecha2=' . request('fecha2')) }}" class="btn btn-outline-success">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                         </div>
                         <div class="col-5">
                             <form method="GET" action="{{ url('/reporte/busquedaregional') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
@@ -52,9 +51,8 @@
                                     <a href="{{ url('/reporte/reportea') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
                                 </div>
                             </form>
-                            <form action="{{ url('/reportea/exporta') }}">
-                                <button class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>Exportar</button>
-                            </form>
+                            <a href="{{ url('/reportea/exportr?regional=' . request('regional')) }}" class="btn btn-outline-success">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                         </div>
                     </div>
                 </div>

@@ -9,8 +9,6 @@
                         <h5>Reporte de Articulos</h5>
                     </b></div>
                 <div class="card-body">
-                    <a href="{{ url('/reporteb/export') }}" class="btn btn-success btn-sm">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Exportar a Excel</a>
                     <form method="GET" action="{{ url('/reporte/busquedacodigo') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">
                             <label for=""><b>Buscar Codigo:</b></label>&nbsp
@@ -19,6 +17,8 @@
                             <a href="{{ url('/reporte/reporteb') }}" class="btn btn-outline-danger">Borrar</a>
                         </div>
                     </form>
+                    <a href="{{ url('/reporteb/export?codigo=' . request('codigo')) }}" class="btn btn-outline-success">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
 
                     <br />
                     <br />

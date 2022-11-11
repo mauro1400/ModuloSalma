@@ -30,8 +30,8 @@ Route::get('/pendiente/{id}',[SolicitudArticuloController::class,'pendiente'])->
 Route::resource('/reporte/reportea', ReporteaController::class);
 Route::get('/reporte/busqueda',[ReporteaController::class,'busqueda']);
 Route::get('/reporte/busquedaregional',[ReporteaController::class,'busquedaRegional']);
-Route::get('/reportea/export', [ReporteaController::class, 'export']); 
-Route::get('/reportea/exporta', [ReporteaController::class, 'exporta']); 
+Route::get('/reportea/exportf', [ReporteaController::class, 'exportf']); 
+Route::get('/reportea/exportr', [ReporteaController::class, 'exportr']); 
 
 ////////////////////////////////////////////////////////////
 Route::resource('/reporte/reporteb', ReportebController::class);
@@ -39,5 +39,5 @@ Route::get('/reporte/busquedacodigo',[ReportebController::class,'busquedaCodigo'
 Route::get('/reporteb/export', [ReportebController::class, 'export']); 
 ////////////////////////////////////////////////////////////
 Route::resource('/reporte/reportec', ReportecController::class);
-Route::get('/reporte/busquedapartida',[ReportecController::class,'busquedaPartida'])->name('reporte.busquedaPartida');
-Route::get('/reporte/export', [ReportecController::class, 'export'])->name('reporte.export');
+Route::get('/reporte/busquedapartida',[ReportecController::class,'busquedaPartida']);
+Route::get('/reporte/export', [ReportecController::class, 'export']);

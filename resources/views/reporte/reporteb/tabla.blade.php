@@ -1,6 +1,7 @@
 <table class="table">
     <thead class="table-dark">
         <tr>
+            <th>#</th>
             <th>Codigo</th>
             <th>Cod_ant</th>
             <th>Description</th>
@@ -23,6 +24,7 @@
     <tbody>
         @foreach($reporteb as $item)
         <tr>
+            <td>{{ $loop->iteration }}</td>
             <td>{{ $item->codigo }}</td>
             <td>{{ $item->cod_ant }}</td>
             <td>{{ $item->description }}</td>

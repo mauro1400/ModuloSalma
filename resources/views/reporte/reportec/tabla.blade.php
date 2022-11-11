@@ -1,6 +1,7 @@
 <table class="table">
     <thead class="table-dark">
         <tr>
+            <th>#</th>
             <th>Fecha Entrega</th>
             <th>nNumero Solicitud</th>
             <th>Solicitante</th>
@@ -18,6 +19,7 @@
     <tbody>
         @foreach($reportec as $item)
         <tr>
+            <td>{{ $loop->iteration }}</td>           
             <td>{{ $item->fecha_entrega}}</td>
             <td>{{ $item->nro_solicitud}}</td>
             <td>{{ $item->solicitante}}</td>

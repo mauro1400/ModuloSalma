@@ -9,7 +9,7 @@
                         <h5>Reportec</h5>
                     </b></div>
                 <div class="card-body">
-                    <form action ="{{ route('reporte.busquedaPartida') }}" class="form-inline my-2 my-lg-0 float-right" role="search">
+                    <form action="{{ url('/reporte/busquedapartida') }}" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">
                             <label for=""><b>Buscar Partida: </b></label>&nbsp
                             <input type="text" class="form-control" name="partida" placeholder="Buscar Partida..." value="{{ request('partida') }}">&nbsp
@@ -17,8 +17,9 @@
                             <a href="{{ url('/reporte/reportec') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
                         </div>
                     </form>
-                    <a href="{{ url('/reporte/export?partida=' . request('partida')) }}" class="btn btn-outline-success"><i class="fa fa-plus" aria-hidden="true">&nbsp</i>Exportar</a>&nbsp
-                    
+                    <a href="{{ url('/reporte/export?partida=' . request('partida')) }}" class="btn btn-outline-success">
+                        <i class="fa fa-plus" aria-hidden="true">&nbsp</i>Exportar</a>&nbsp
+
                     <br />
                     <br />
                 </div>

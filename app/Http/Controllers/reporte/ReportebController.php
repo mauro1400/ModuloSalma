@@ -3,10 +3,6 @@
 namespace App\Http\Controllers\reporte;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-
-use App\Models\Reporteb;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Exports\ReportebExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -87,10 +83,10 @@ class ReportebController extends Controller
     }
 
 
-    public function busquedaCodigo(Request $request)
+    public function busquedaCodigo()
     {
         
-        $codigo = $request->get('codigo');
+        $codigo = request('codigo');
         $busqueda = DB::select('SELECT t3.*, 
         (t3.ingreso - t3.egreso) as saldo,  
         round((t3.precio_u * t3.ingreso),2) as ingreso_e,
@@ -162,7 +158,7 @@ class ReportebController extends Controller
     public function export()
     {
         $hoy= now();
-        return (new ReportebExport)->dato("256001")->download("reporte.$hoy.xlsx");
+        return (new ReportebExport)->dato(request('codigo'))->download("reporte.$hoy.xlsx");
         //return Excel::download(new ReportebExport, "reporte.$hoy.xlsx");
     }
 }

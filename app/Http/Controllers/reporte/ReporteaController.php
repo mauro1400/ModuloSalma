@@ -34,10 +34,10 @@ class ReporteaController extends Controller
         return view('reporte.reportea.index', compact('reportea'));
     }
 
-    public function busqueda(Request $request)
+    public function busqueda()
     {
-        $fecha1 = $request->get('fecha1');
-        $fecha2 = $request->get('fecha2');
+        $fecha1 = request('fecha1');
+        $fecha2 = request('fecha2');
         $busqueda = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
             SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante,
             u1.name as administrador, d.name as departamento, s.description as articulo, 
@@ -63,9 +63,9 @@ class ReporteaController extends Controller
         $reportea['reportea'] = $busqueda;
         return view('reporte.reportea.index', $reportea);
     }
-    public function busquedaRegional(Request $request)
+    public function busquedaRegional()
     {
-        $regional = $request->get('regional');
+        $regional = request('regional');
         $busquedaRegional = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
             SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante,
             u1.name as administrador, d.name as departamento, s.description as articulo, 
@@ -91,18 +91,16 @@ class ReporteaController extends Controller
         return view('reporte.reportea.index', $reportea);
     }
     
-    public function exporta(Request $request)
+    public function exportr()
     {
-        $regional = $request->get('regional');
         $hoy= now();
-        return (new ReporteaExport)->dato("REGIONAL EL ALTO")->download("reporte.$hoy.xlsx");
+        return (new ReporteaExport)->dato(request('regional'))->download("reporte.$hoy.xlsx");
         //return Excel::download(new ReporteaExport, "reporte.$hoy.xlsx");
     }
-    public function export(Request $request)
+    public function exportf()
     {
-        $regional = $request->get('regional');
         $hoy= now();
-        return (new ReporteafechasExport)->dato("2022-04-01","2022-04-30")->download("reporte.$hoy.xlsx");
+        return (new ReporteafechasExport)->dato(request('fecha1'),request('fecha2'))->download("reporte.$hoy.xlsx");
         //return Excel::download(new ReporteaExport, "reporte.$hoy.xlsx");
     }
 
