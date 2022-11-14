@@ -16,20 +16,20 @@ Route::get('/aprovado/{id}',[SolicitudArticuloController::class,'aprobado'])->na
 Route::get('/pendiente/{id}',[SolicitudArticuloController::class,'pendiente'])->name('SolicitudArticulo.pendiente');
 
 ////////////////////////////////////////////////////////////
-Route::resource('/reporte/reporteCertificadoOrigen', ReporteCertificadoOrigenController::class);
-Route::get('/reporte/filtroregional', [ReporteCertificadoOrigenController::class,'filtroRegional']);
-Route::get('/reporte/filtrofecha', [ReporteCertificadoOrigenController::class,'filtroFecha']);
-Route::get('/reporte/busquedafechas',[ReporteCertificadoOrigenController::class,'busquedaFechas']);
-Route::get('/reporte/busquedaregional',[ReporteCertificadoOrigenController::class,'busquedaRegional']);
-Route::get('/reporte/exportarReporteCORegional', [ReporteCertificadoOrigenController::class, 'exportarReporteRegional']); 
-Route::get('/reporte/exportarReporteCOFechas', [ReporteCertificadoOrigenController::class, 'exportarReporteFechas']); 
+Route::resource('/reporte/reporteCertificadoOrigen', ReporteCertificadoOrigenController::class);//->name('')
+Route::get('/reporte/filtroregional', [ReporteCertificadoOrigenController::class,'filtroRegional']);//->name('')
+Route::get('/reporte/filtrofecha', [ReporteCertificadoOrigenController::class,'filtroFecha']);//->name('')
+Route::get('/reporte/busquedafechas',[ReporteCertificadoOrigenController::class,'busquedaFechas']);//->name('')
+Route::get('/reporte/busquedaregional',[ReporteCertificadoOrigenController::class,'busquedaRegional']);//->name('')
+Route::get('/reporte/exportarReporteCORegional', [ReporteCertificadoOrigenController::class, 'exportarReporteRegional']);//->name('')
+Route::get('/reporte/exportarReporteCOFechas', [ReporteCertificadoOrigenController::class, 'exportarReporteFechas']);//->name('')
 
 ////////////////////////////////////////////////////////////
-Route::resource('/reporte/reporteb', ReporteArticulosController::class);
-Route::get('/reporte/busquedacodigo',[ReporteArticulosController::class,'busquedaCodigo']);
-Route::get('/reporteb/export', [ReporteArticulosController::class, 'export']);
+Route::resource('/reporte/ReporteArticulos', ReporteArticulosController::class);//->name('')
+Route::get('/reporte/busquedacodigo',[ReporteArticulosController::class,'busquedaCodigo']);//->name('')
+Route::get('/reporte/exportarReporteArticulos', [ReporteArticulosController::class, 'exportarReporteArticulos']);//->name('')
 
 ////////////////////////////////////////////////////////////
-Route::resource('/reporte/reportec', ReportePartidasController::class);
-Route::get('/reporte/busquedapartida',[ReportePartidasController::class,'busquedaPartida']);
-Route::get('/reporte/export', [ReportePartidasController::class, 'export']);
+Route::resource('/reporte/reportePartidas', ReportePartidasController::class);//->name('')
+Route::get('/reporte/busquedapartida',[ReportePartidasController::class,'busquedaPartida']);//->name('')
+Route::get('/reporte/exportarReportePartida', [ReportePartidasController::class, 'exportarReportePartidas']);//->name('')

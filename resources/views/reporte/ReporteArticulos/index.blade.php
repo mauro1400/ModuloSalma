@@ -14,15 +14,15 @@
                             <label for=""><b>Buscar Codigo:</b></label>&nbsp
                             <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Buscar Codigo..." value="{{ request('codigo') }}">&nbsp
                             <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
-                            <a href="{{ url('/reporte/reporteb') }}" class="btn btn-outline-danger">Borrar</a>
+                            <a href="{{ url('/reporte/ReporteArticulos') }}" class="btn btn-outline-danger">Borrar</a>
                         </div>
                     </form>
-                    <a href="{{ url('/reporteb/export?codigo=' . request('codigo')) }}" class="btn btn-outline-success">
+                    <a href="{{ url('/reporte/exportarReporteArticulos?codigo=' . request('codigo')) }}" class="btn btn-outline-success">
                         <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                     <br />
                 </div>
                 <div class="table-responsive">
-                    @include('reporte.reporteb.tabla',$reporteb)
+                    @include('reporte.ReporteArticulos.tabla',$reporteArticulos)
                 </div>
             </div>
         </div>

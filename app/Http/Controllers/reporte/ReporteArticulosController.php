@@ -4,19 +4,14 @@ namespace App\Http\Controllers\reporte;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Exports\ReportebExport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ReporteArticulosExport;
 
 class ReporteArticulosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function index()
     {
-        $reporteb = DB::select('SELECT t3.*, 
+        $reporte = DB::select('SELECT t3.*, 
         (t3.ingreso - t3.egreso) as saldo,  
         round((t3.precio_u * t3.ingreso),2) as ingreso_e,
         round((t3.precio_u * t3.egreso),2) as egreso_e,
@@ -79,13 +74,14 @@ class ReporteArticulosController extends Controller
            where r.delivery_date >= t2.date          
            group by t2.codigo,t2.num_fac,r.delivery_date)t3
  order by t3.codigo');
-        return view('reporte.reporteb.index', compact('reporteb'));
+        $reporteArticulos['reporteArticulos'] = $reporte;
+        return view('reporte.ReporteArticulos.index', $reporteArticulos);
     }
 
 
     public function busquedaCodigo()
     {
-        
+
         $codigo = request('codigo');
         $busqueda = DB::select('SELECT t3.*, 
         (t3.ingreso - t3.egreso) as saldo,  
@@ -152,13 +148,12 @@ class ReporteArticulosController extends Controller
            WHERE t3.codigo LIKE :codigo order by t3.codigo', array(
             'codigo' => "$codigo"
         ));
-        $reporteb['reporteb']=$busqueda;
-            return view('reporte.reporteb.index', $reporteb);
+        $reporteArticulos['reporteArticulos'] = $busqueda;
+        return view('reporte.ReporteArticulos.index', $reporteArticulos);
     }
     public function exportarReporteArticulos()
     {
-        $hoy= now();
-        return (new ReportebExport)->dato(request('codigo'))->download("reporte.$hoy.xlsx");
-        //return Excel::download(new ReportebExport, "reporte.$hoy.xlsx");
+        $hoy = now();
+        return (new ReporteArticulosExport)->dato(request('codigo'))->download("reporte.$hoy.xlsx");
     }
 }

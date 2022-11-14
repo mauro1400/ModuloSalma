@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ReportebExport implements FromCollection,ShouldAutoSize, WithHeadings,WithStyles
+class ReporteArticulosExport implements FromCollection,ShouldAutoSize, WithHeadings,WithStyles
 {
     use Exportable;
     public function headings(): array

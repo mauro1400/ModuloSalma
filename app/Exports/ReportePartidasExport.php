@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ReportecExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
+class ReportePartidasExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
 {
     use Exportable;
     public function headings(): array
@@ -39,7 +39,7 @@ class ReportecExport implements FromCollection, ShouldAutoSize, WithHeadings, Wi
         ];
     }
 
-    public function dato($partida)
+    public function partida($partida)
     {
         $this->partida = $partida;
         return $this;

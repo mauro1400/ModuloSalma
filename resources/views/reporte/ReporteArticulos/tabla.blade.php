@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($reporteb as $item)
+        @foreach($reporteArticulos as $item)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $item->codigo }}</td>
