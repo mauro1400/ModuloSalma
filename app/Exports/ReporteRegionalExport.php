@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ReporteaExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
+class ReporteRegionalExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
 {
     use Exportable;
     public function headings(): array
@@ -38,7 +38,7 @@ class ReporteaExport implements FromCollection, ShouldAutoSize, WithHeadings, Wi
             1    => ['font' => ['bold' => true]],
         ];
     }
-    public function dato($regional)
+    public function regional($regional)
     {
         $this->regional = $regional;
         return $this;

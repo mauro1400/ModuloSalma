@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\ReportebExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ReportebController extends Controller
+class ReporteArticulosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -155,7 +155,7 @@ class ReportebController extends Controller
         $reporteb['reporteb']=$busqueda;
             return view('reporte.reporteb.index', $reporteb);
     }
-    public function export()
+    public function exportarReporteArticulos()
     {
         $hoy= now();
         return (new ReportebExport)->dato(request('codigo'))->download("reporte.$hoy.xlsx");

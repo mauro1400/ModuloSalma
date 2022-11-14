@@ -12,17 +12,17 @@
                     <div class="row justify-content-center">
                         <div class="col-7-fluid">
 
-                            <form method="GET" action="{{ url('/reporte/busqueda') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                            <form method="GET" action="{{ url('/reporte/busquedafechas') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                                 <div class="input-group">
                                     <label for=""><b>Fecha Inicio:&nbsp</b></label>
-                                    <input type="date" class="form-control me-2" name="fecha1" id="fecha1" value="{{ request('fecha1') }}">&nbsp
+                                    <input type="date" class="form-control me-2" name="fechaInicio" id="fechaInicio" value="{{ request('fechaInicio') }}">&nbsp
                                     <label for=""><b>Fecha Fin:&nbsp</b></label>
-                                    <input type="date" class="form-control me-2" name="fecha2" id="fecha2" value="{{ request('fecha2') }}">&nbsp
+                                    <input type="date" class="form-control me-2" name="fechaFin" id="fechaFin" value="{{ request('fechaFin') }}">&nbsp
                                     <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
-                                    <a href="{{ url('/reporte/reportea') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
+                                    <a href="{{ url('/reporte/reporteCertificadoOrigen') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
 
                                 </div>
-                                <a href="{{ url('/reportea/exportf?fecha1=' . request('fecha1') . '&fecha2=' . request('fecha2')) }}" class="btn btn-outline-success">
+                                <a href="{{ url('/reporte/exportarReporteCOFechas?fechaInicio=' . request('fechaInicio') . '&fechaFin=' . request('fechaFin')) }}" class="btn btn-outline-success">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                             </form>
                         </div>
@@ -48,9 +48,9 @@
                                         <option value="DIRECCIÓN GENERAL EJECUTIVA">
                                     </datalist>
                                     <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
-                                    <a href="{{ url('/reporte/reportea') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
+                                    <a href="{{ url('/reporte/reporteCertificadoOrigen') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
                                 </div>
-                                <a href="{{ url('/reportea/exportr?regional=' . request('regional')) }}" class="btn btn-outline-success">
+                                <a href="{{ url('/reporte/exportarReporteCORegional?regional=' . request('regional')) }}" class="btn btn-outline-success">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
                             </form>
                         </div>
@@ -59,7 +59,7 @@
                 <br />
                 <br />
                 <div class="table-responsive">
-                    @include('reporte.reportea.tabla',$reportea)
+                    @include('reporte.reporteCertificadoOrigen.tabla',$reporteCertificadoOrigen)
                 </div>
             </div>
         </div>

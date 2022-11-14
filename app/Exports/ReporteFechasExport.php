@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ReporteafechasExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
+class ReportefechasExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles
 {
     use Exportable;
     public function headings(): array
@@ -38,10 +38,10 @@ class ReporteafechasExport implements FromCollection, ShouldAutoSize, WithHeadin
             1    => ['font' => ['bold' => true]],
         ];
     }
-    public function dato($fecha1, $fecha2 )
+    public function fechas($fechaInicio, $fechaFin )
     {
-        $this->fecha1 = $fecha1;
-        $this->fecha2 = $fecha2;
+        $this->fechaInicio = $fechaInicio;
+        $this->fechaFin = $fechaFin;
         return $this;
     }
     public function collection()
@@ -63,9 +63,9 @@ class ReporteafechasExport implements FromCollection, ShouldAutoSize, WithHeadin
             left join subarticles s on s.id=sq.subarticle_id 
             left join departments d on d.id=u.department_id 
             where sq.observacion is not null order by d.name, s.description)t
-            where t.al is not null AND date(t.fecha_entrega) BETWEEN :fecha1 AND :fecha2', array(
-            'fecha1' => "$this->fecha1",
-            'fecha2' => "$this->fecha2"
+            where t.al is not null AND date(t.fecha_entrega) BETWEEN :fechaInicio AND :fechaFin', array(
+            'fechaInicio' => "$this->fechaInicio",
+            'fechaFin' => "$this->fechaFin"
         ));
         return collect($busquedafechas);
     }

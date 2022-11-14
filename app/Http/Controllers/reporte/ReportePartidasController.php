@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\ReportecExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ReportecController extends Controller
+class ReportePartidasController extends Controller
 {
     public function index()
     {

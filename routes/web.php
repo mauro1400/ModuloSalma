@@ -1,43 +1,33 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\reporte\ReporteaController;
-use App\Http\Controllers\reporte\ReportebController;
-use App\Http\Controllers\reporte\ReportecController;
+use App\Http\Controllers\reporte\ReporteArticulosController;
+use App\Http\Controllers\reporte\ReporteCertificadoOrigenController;
+use App\Http\Controllers\reporte\ReportePartidasController;
 use App\Http\Controllers\SolicitudArticulo\SolicitudArticuloController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
-
+////////////////////////////////////////////////////////////
 Route::resource('/SolicitudArticulo/solicitud-articulo', SolicitudArticuloController::class);
 Route::get('/SolicitudArticulo/busquedacodigo',[SolicitudArticuloController::class,'buscarSolicitud']);
 Route::get('/aprovado/{id}',[SolicitudArticuloController::class,'aprobado'])->name('SolicitudArticulo.aprobado');
 Route::get('/pendiente/{id}',[SolicitudArticuloController::class,'pendiente'])->name('SolicitudArticulo.pendiente');
 
 ////////////////////////////////////////////////////////////
-Route::resource('/reporte/reportea', ReporteaController::class);
-Route::get('/reporte/busqueda',[ReporteaController::class,'busqueda']);
-Route::get('/reporte/busquedaregional',[ReporteaController::class,'busquedaRegional']);
-Route::get('/reportea/exportf', [ReporteaController::class, 'exportf']); 
-Route::get('/reportea/exportr', [ReporteaController::class, 'exportr']); 
+Route::resource('/reporte/reporteCertificadoOrigen', ReporteCertificadoOrigenController::class);
+Route::get('/reporte/busquedafechas',[ReporteCertificadoOrigenController::class,'busquedaFechas']);
+Route::get('/reporte/busquedaregional',[ReporteCertificadoOrigenController::class,'busquedaRegional']);
+Route::get('/reporte/exportarReporteCORegional', [ReporteCertificadoOrigenController::class, 'exportarReporteRegional']); 
+Route::get('/reporte/exportarReporteCOFechas', [ReporteCertificadoOrigenController::class, 'exportarReporteFechas']); 
 
 ////////////////////////////////////////////////////////////
-Route::resource('/reporte/reporteb', ReportebController::class);
-Route::get('/reporte/busquedacodigo',[ReportebController::class,'busquedaCodigo']);
-Route::get('/reporteb/export', [ReportebController::class, 'export']); 
+Route::resource('/reporte/reporteb', ReporteArticulosController::class);
+Route::get('/reporte/busquedacodigo',[ReporteArticulosController::class,'busquedaCodigo']);
+Route::get('/reporteb/export', [ReporteArticulosController::class, 'export']);
+
 ////////////////////////////////////////////////////////////
-Route::resource('/reporte/reportec', ReportecController::class);
-Route::get('/reporte/busquedapartida',[ReportecController::class,'busquedaPartida']);
-Route::get('/reporte/export', [ReportecController::class, 'export']);
+Route::resource('/reporte/reportec', ReportePartidasController::class);
+Route::get('/reporte/busquedapartida',[ReportePartidasController::class,'busquedaPartida']);
+Route::get('/reporte/export', [ReportePartidasController::class, 'export']);

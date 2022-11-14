@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use App\Exports\ReporteaExport;
-use App\Exports\ReporteafechasExport;
+use App\Exports\ReporteRegionalExport;
+use App\Exports\ReportefechasExport;
 
-class ReporteaController extends Controller
+class ReporteCertificadoOrigenController extends Controller
 {
     public function index()
     {
-        $reportea = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
+        $reporteCertificadoOrigen = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
             SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante,
             u1.name as administrador, d.name as departamento, s.description as articulo, 
             sq.amount as pedido, sq.amount_delivered as entregado, sq.total_delivered as total_entregado, 
@@ -31,14 +31,14 @@ class ReporteaController extends Controller
             left join departments d on d.id=u.department_id 
             where sq.observacion is not null order by d.name, s.description)t
             where t.al is not null');
-        return view('reporte.reportea.index', compact('reportea'));
+        return view('reporte.reporteCertificadoOrigen.index', compact('reporteCertificadoOrigen'));
     }
 
-    public function busqueda()
+    public function busquedaFechas()
     {
-        $fecha1 = request('fecha1');
-        $fecha2 = request('fecha2');
-        $busqueda = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
+        $fechaInicio = request('fechaInicio');
+        $fechaFin = request('fechaFin');
+        $busquedaFechas = DB::select('SELECT t.*, (((t.al-t.del)+1)/25) as certificados FROM (
             SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante,
             u1.name as administrador, d.name as departamento, s.description as articulo, 
             sq.amount as pedido, sq.amount_delivered as entregado, sq.total_delivered as total_entregado, 
@@ -56,12 +56,12 @@ class ReporteaController extends Controller
             left join departments d on d.id=u.department_id 
             where sq.observacion is not null order by d.name, s.description)t
             where t.al is not null AND date(t.fecha_entrega) BETWEEN :fecha1 AND :fecha2', array(
-            'fecha1' => "$fecha1",
-            'fecha2' => "$fecha2"
+            'fecha1' => "$fechaInicio",
+            'fecha2' => "$fechaFin"
         ));
 
-        $reportea['reportea'] = $busqueda;
-        return view('reporte.reportea.index', $reportea);
+        $reporteFechas['reporteCertificadoOrigen'] = $busquedaFechas;
+        return view('reporte.reporteCertificadoOrigen.index', $reporteFechas);
     }
     public function busquedaRegional()
     {
@@ -87,21 +87,20 @@ class ReporteaController extends Controller
             'regional' => "$regional"
         ));
 
-        $reportea['reportea'] = $busquedaRegional;
-        return view('reporte.reportea.index', $reportea);
+        $reporteRegional['reporteCertificadoOrigen'] = $busquedaRegional;
+        return view('reporte.reporteCertificadoOrigen.index', $reporteRegional);
     }
     
-    public function exportr()
+    public function exportarReporteRegional()
     {
         $hoy= now();
-        return (new ReporteaExport)->dato(request('regional'))->download("reporte.$hoy.xlsx");
-        //return Excel::download(new ReporteaExport, "reporte.$hoy.xlsx");
+        return (new ReporteRegionalExport)->regional(request('regional'))->download("reporte.$hoy.xlsx");
     }
-    public function exportf()
+
+    public function exportarReporteFechas()
     {
         $hoy= now();
-        return (new ReporteafechasExport)->dato(request('fecha1'),request('fecha2'))->download("reporte.$hoy.xlsx");
-        //return Excel::download(new ReporteaExport, "reporte.$hoy.xlsx");
+        return (new ReportefechasExport)->fechas(request('fechaInicio'),request('fechaFin'))->download("reporte.$hoy.xlsx");
     }
 
 }

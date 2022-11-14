@@ -3,20 +3,12 @@
 namespace App\Http\Controllers\SolicitudArticulo;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-
 use App\Models\SolicitudArticulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
 class SolicitudArticuloController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $solicitudarticulo = DB::table('subarticle_requests')

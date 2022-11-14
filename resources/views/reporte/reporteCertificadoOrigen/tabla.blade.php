@@ -18,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($reportea as $item)
+        @foreach($reporteCertificadoOrigen as $item)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $item->fecha_entrega }}</td>
