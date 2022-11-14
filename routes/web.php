@@ -17,6 +17,8 @@ Route::get('/pendiente/{id}',[SolicitudArticuloController::class,'pendiente'])->
 
 ////////////////////////////////////////////////////////////
 Route::resource('/reporte/reporteCertificadoOrigen', ReporteCertificadoOrigenController::class);
+Route::get('/reporte/filtroregional', [ReporteCertificadoOrigenController::class,'filtroRegional']);
+Route::get('/reporte/filtrofecha', [ReporteCertificadoOrigenController::class,'filtroFecha']);
 Route::get('/reporte/busquedafechas',[ReporteCertificadoOrigenController::class,'busquedaFechas']);
 Route::get('/reporte/busquedaregional',[ReporteCertificadoOrigenController::class,'busquedaRegional']);
 Route::get('/reporte/exportarReporteCORegional', [ReporteCertificadoOrigenController::class, 'exportarReporteRegional']); 

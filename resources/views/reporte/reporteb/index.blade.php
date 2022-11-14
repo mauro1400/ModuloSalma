@@ -19,8 +19,6 @@
                     </form>
                     <a href="{{ url('/reporteb/export?codigo=' . request('codigo')) }}" class="btn btn-outline-success">
                         <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
-
-                    <br />
                     <br />
                 </div>
                 <div class="table-responsive">

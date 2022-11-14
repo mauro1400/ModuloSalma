@@ -19,8 +19,6 @@
                     </form>
                     <a href="{{ url('/reporte/export?partida=' . request('partida')) }}" class="btn btn-outline-success">
                         <i class="fa fa-plus" aria-hidden="true">&nbsp</i>Exportar</a>&nbsp
-
-                    <br />
                     <br />
                 </div>
                 <div class="table-responsive">
