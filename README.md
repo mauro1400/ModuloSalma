@@ -11,14 +11,14 @@
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <th scope="col">Reporte Certificados de Origen</th>
+      <td scope="col">Reporte Certificados de Origen</td>
     </tr>
     <tr>
       <th scope="row">2</th>
       <td>Reporte de Articulos</td>
     </tr>
     <tr>
-        <th scope="row">3</th>
+       <th scope="row">3</th>
       <td>Reporte de Partidas</td>
     </tr>
       <tr>
