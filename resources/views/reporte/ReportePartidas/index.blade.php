@@ -12,7 +12,7 @@
                     <form action="{{ url('/reporte/busquedapartida') }}" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">
                             <label for=""><b>Buscar Partida: </b></label>&nbsp
-                            <input type="text" class="form-control" name="partida" placeholder="Buscar Partida..." value="{{ request('partida') }}">&nbsp
+                            <input type="text" class="form-control" name="partida" placeholder="Buscar Articulos..." value="{{ request('partida') }}">&nbsp
                             <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
                             <a href="{{ url('/reporte/reportePartidas') }}" class="btn btn-outline-danger">Borrar</a>&nbsp
                         </div>
