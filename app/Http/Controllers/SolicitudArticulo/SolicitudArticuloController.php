@@ -15,7 +15,7 @@ class SolicitudArticuloController extends Controller
             ->join('requests', 'subarticle_requests.request_id', '=', 'requests.id')
             ->join('subarticles', 'subarticle_requests.subarticle_id', '=', 'subarticles.id')
             ->select('subarticles.description', 'subarticles.unit', 'requests.nro_solicitud', 'subarticle_requests.*')
-            ->simplePaginate(100);
+            ->paginate(20);
         return view('SolicitudArticulo.solicitud-articulo.index', ['solicitudarticulo' => $solicitudarticulo]);
     }
 

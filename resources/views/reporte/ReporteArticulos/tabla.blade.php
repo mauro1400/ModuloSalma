@@ -1,24 +1,26 @@
 <table class="table">
-    <thead class="table-dark">
+    <thead class="table-primary text-center ">
         <tr>
-            <th>#</th>
-            <th>Codigo</th>
-            <th>Cod_ant</th>
-            <th>Description</th>
-            <th>Unidad de Medida</th>
-            <th>Partida</th>
-            <th>Numero de Factura</th>
-            <th>Detalle</th>
-            <th>Precio Unitario</th>
-            <th>Fecha_e</th>
-            <th>Fecha_e2</th>
-            <th>Fecha_s</th>
+            <th rowspan="2">#</th>
+            <th rowspan="2">Codigo</th>
+            <th rowspan="2">Cod_ant</th>
+            <th rowspan="2">Description</th>
+            <th rowspan="2">Unidad de Medida</th>
+            <th rowspan="2">Partida</th>
+            <th rowspan="2">Numero de Factura</th>
+            <th rowspan="2">Detalle</th>
+            <th rowspan="2">Precio Unitario</th>
+            <th colspan="3">FISICO</th>
+            <th colspan="3">VALORADO</th>
+
+        </tr>
+        <tr>
             <th>Ingreso</th>
             <th>Egreso</th>
             <th>Saldo</th>
-            <th>Ingreso_e</th>
-            <th>Egreso_e</th>
-            <th>Saldo_e</th>
+            <th>*Ingreso</th>
+            <th>*Egreso</th>
+            <th>*Saldo</th>
         </tr>
     </thead>
     <tbody>
@@ -32,16 +34,11 @@
             <td>{{ $item->partida }}</td>
             <td>{{ $item->num_fac }}</td>
             <td>{{ $item->detalle }}</td>
-            <td>{{ $item->precio_u }}</td>
-            <td>{{ $item->fecha_e }}</td>
-            <td>{{ $item->fecha_e2 }}</td>
-            <td>{{ $item->fecha_s }}</td>
+            <td>{{ $item->p_unitario }}</td>
             <td>{{ $item->ingreso }}</td>
-            <td>{{ $item->egreso }}</td>
-            <td>{{ $item->saldo }}</td>
-            <td>{{ $item->ingreso_e }}</td>
-            <td>{{ $item->egreso_e }}</td>
-            <td>{{ $item->saldo_e }}</td>
+            <td></td>
+            <td></td>
+            <td>{{ $item->t_ingreso }}</td>
         </tr>
         @endforeach
     </tbody>

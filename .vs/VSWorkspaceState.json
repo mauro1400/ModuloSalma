@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\Http",
+    "\\app\\Http\\Controllers",
+    "\\app\\Http\\Controllers\\reporte",
+    "\\bootstrap\\cache"
+  ],
+  "SelectedNode": "\\app\\Http\\Controllers\\reporte\\ReporteArticulosController.php",
+  "PreviewInSolutionExplorer": false
+}

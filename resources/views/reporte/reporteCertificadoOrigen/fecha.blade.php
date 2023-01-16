@@ -14,7 +14,7 @@
                             @include('reporte.reporteCertificadoOrigen.app')
                         </div>
                         <div class="col-5-fluid">
-
+                            <br>
                             <form method="GET" action="{{ url('/reporte/busquedafechas') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                                 <div class="input-group">
                                     <label for=""><b>Fecha Inicio:&nbsp</b></label>

@@ -5,7 +5,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><b><h5>Solicitud de Articulo</h5></b></div>
+                <div class="card-header"><b>
+                        <h5>Solicitud de Articulo</h5>
+                    </b></div>
                 <div class="card-body">
                     <form method="GET" action="{{ url('/SolicitudArticulo/busquedacodigo') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">
@@ -22,6 +24,8 @@
                 <div class="table-responsive">
                     @include('SolicitudArticulo.solicitud-articulo.tabla',$solicitudarticulo)
                 </div>
+
+                <div class="pagination justify-content-center"> {!! $solicitudarticulo->appends(['search' => Request::get('search')])->render() !!} </div>
             </div>
         </div>
     </div>

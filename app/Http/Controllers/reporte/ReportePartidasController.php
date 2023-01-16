@@ -40,7 +40,7 @@ class ReportePartidasController extends Controller
         where sq.observacion is not null 
         and m.code in (32100,32200)
         and m.code  LIKE :partida
-        order by DATE(r.created_at), s.code, s.description;', array(
+        order by DATE(r.created_at), s.code, s.description', array(
             'partida' => "$partida"
         ));
         $reportePartidas['reportePartidas'] = $busqueda;

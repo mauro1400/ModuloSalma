@@ -31,6 +31,7 @@ class ReporteCertificadoOrigenController extends Controller
             left join departments d on d.id=u.department_id 
             where sq.observacion is not null order by d.name, s.description)t
             where t.al is not null');
+            
         return view('reporte.reporteCertificadoOrigen.index', compact('reporteCertificadoOrigen'));
     }
 

@@ -14,8 +14,10 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    
 </head>
 
 <body>
@@ -32,10 +34,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link" href="{{ url('/reporte/reporteCertificadoOrigen') }}"><b>|</b> Reporte Certificados de Origen</a></li>
-                        <li><a class="nav-link" href="{{ url('/reporte/ReporteArticulos') }}"><b>|</b> Reporte de Partidas</a></li>
-                        <li><a class="nav-link" href="{{ url('/reporte/reportePartidas') }}"><b>|</b> Reporte de Articulos</a></li>
-                        <li><a class="nav-link" href="{{ url('/SolicitudArticulo/solicitud-articulo') }}"><b>|</b> Solicitud de Articulo</a></li>
+                        <li><a class="nav-link" href="{{ url('/reporte/reporteCertificadoOrigen') }}">
+                                <h6><b>|</b> Reporte Certificados de Origen</h6>
+                            </a></li>
+                        <li><a class="nav-link" href="{{ url('/reporte/ReporteArticulos') }}">
+                                <h6><b>|</b> Reporte de Articulo</h6>
+                            </a></li>
+                        <li><a class="nav-link" href="{{ url('/reporte/reportePartidas') }}">
+                                <h6><b>|</b> Reporte de Partida</h6>
+                            </a></li>
+                        <li><a class="nav-link" href="{{ url('/SolicitudArticulo/solicitud-articulo') }}">
+                                <h6><b>|</b> Solicitud de Articulo</h6>
+                            </a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -72,5 +82,10 @@
         </main>
     </div>
 </body>
-
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 </html>
+<style>
+    body {
+        font-size: 13px;
+    }
+</style>

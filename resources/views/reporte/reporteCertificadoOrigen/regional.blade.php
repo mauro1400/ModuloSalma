@@ -14,6 +14,7 @@
                             @include('reporte.reporteCertificadoOrigen.app')
                         </div>
                         <div class="col-5-ms-auto-fluid">
+                            <br>
                             <form method="GET" action="{{ url('/reporte/busquedaregional') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                                 <div class="input-group">
                                     <label for="DataList" class="form-label"><b>Buscar Regional:&nbsp</b></label>
