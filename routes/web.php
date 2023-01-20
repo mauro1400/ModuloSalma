@@ -25,7 +25,7 @@ Route::get('/reporte/exportarReporteCORegional', [ReporteCertificadoOrigenContro
 Route::get('/reporte/exportarReporteCOFechas', [ReporteCertificadoOrigenController::class, 'exportarReporteFechas']);//->name('')
 
 ////////////////////////////////////////////////////////////
-Route::resource('/reporte/ReporteArticulos', ReporteArticulosController::class);//->name('')
+Route::get('/reporte/ReporteArticulos', [ReporteArticulosController::class,'inicio']);//->name('')
 Route::get('/reporte/busquedacodigo',[ReporteArticulosController::class,'busquedaCodigo']);//->name('')
 Route::get('/reporte/exportarReporteArticulos', [ReporteArticulosController::class, 'exportarReporteArticulos']);//->name('')
 
