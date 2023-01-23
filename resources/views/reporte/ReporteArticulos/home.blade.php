@@ -46,10 +46,10 @@
                                                         value="{{ request('fecha_fin') }}">
                                                 </div>
 
-                                                <dir class="col-md-1">
+                                                <dir class="col-md-1 col-sm-2">
                                                     <button class="btn btn-outline-success" type="submit">Buscar</button>
                                                 </dir>
-                                                <div class="col-md-1">
+                                                <div class="col-md-1 col-sm-2">
                                                     <a href="{{ url('/reporte/ReporteArticulos') }}"
                                                         class="btn btn-outline-danger">Borrar</a>
                                                 </div>
