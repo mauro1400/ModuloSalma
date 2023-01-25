@@ -7,13 +7,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Exports\ReporteArticulosExport;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Row;
-use mysqli;
-use PhpParser\ErrorHandler\Collecting;
 
 class ReporteArticulosController extends Controller
 {
@@ -98,18 +91,29 @@ class ReporteArticulosController extends Controller
                   ->setCategory('La categoría');
             $hoja = $documento->getActiveSheet();
             $hoja->setTitle("Reporte de Articulos");
-            //$hoja->mergeCells('A1:N1');
             $cabeceraFecha = ["Del $fecha_inicio Al $fecha_fin"];
             $cabecera1 = ["INVENTARIO DE ALMACENES FISICO VALORADO SENAVEX"];
             $cabecera2 = ["(Expresados en Bolivianos)"];
 
-            $encabezado1 = ["Codigo", "Cod_ant", "Description", "Uni_med", "Partida", "Num_fac", "Detalle", "Precio_u"];
+            $encabezado1 = ["CODIGO", "PARTIDA PRESUPRESTARIA", "UNIDAD", "PARTIDA", "NUMERO FACTURA", "DETALLE", "PRECIO UNITARIO"];
             $encabezado2 = ["Ingreso", "Egreso", "Saldo", "Ingreso*", "Egreso*", "Saldo*"];
             $encabezado3 = ["FISICO", "", "", "VALORADO"];
 
-            $hoja->fromArray($cabecera1, null, 'A1')->mergeCells('A1:N1')->getStyle('A1:N1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $hoja->fromArray($cabecera2, null, 'A3')->mergeCells('A3:N3')->getStyle('A3:N3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $hoja->fromArray($cabeceraFecha, null, 'A2')->mergeCells('A2:N2')->getStyle('A2:N2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $hoja->getCell('A1')->getStyle()->getFont()->setSize(15);
+            $hoja->getCell('A3')->getStyle()->getFont()->setSize(10);
+
+            $hoja->fromArray($cabecera1, null, 'A1')->mergeCells('A1:M1')->getStyle('A1:M1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $hoja->fromArray($cabecera2, null, 'A3')->mergeCells('A3:M3')->getStyle('A3:M3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $hoja->fromArray($cabeceraFecha, null, 'A2')->mergeCells('A2:M2')->getStyle('A2:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+            $hoja->getColumnDimension('B')->setAutoSize(true);
+            $hoja->getColumnDimension('D')->setAutoSize(true);
+            $hoja->getColumnDimension('F')->setAutoSize(true);
+
+            $hoja->getStyle('A5:M6')->getAlignment()->setWrapText(true);
+
+            $hoja->getStyle('A5:Z10000')->getFont()->setName('Arial');
+            $hoja->getStyle('A5:Z10000')->getFont()->setSize(8);
 
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('A5:A6')->getStyle('A5:A6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('B5:B6')->getStyle('B5:B6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -118,24 +122,37 @@ class ReporteArticulosController extends Controller
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('E5:E6')->getStyle('E5:E6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('F5:F6')->getStyle('F5:F6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('G5:G6')->getStyle('G5:G6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('H5:H6')->getStyle('H5:H6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            //$hoja->fromArray($encabezado1, null, 'A5')->mergeCells('H5:H6')->getStyle('H5:H6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-            $hoja->fromArray($encabezado3, null, 'I5')->mergeCells('I5:K5')->getStyle('I5:K5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $hoja->fromArray($encabezado3, null, 'I5')->mergeCells('L5:N5')->getStyle('L5:N5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $hoja->fromArray($encabezado3, null, 'H5')->mergeCells('H5:J5')->getStyle('H5:J5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $hoja->fromArray($encabezado3, null, 'H5')->mergeCells('K5:M5')->getStyle('K5:M5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-            $hoja->fromArray($encabezado2, null, 'I6');
-            $hoja->fromArray($encabezado2, null, 'I6');
-            $hoja->fromArray($encabezado2, null, 'I6');
+            $hoja->fromArray($encabezado2, null, 'H6')->getStyle('I6')->getFill()->getStartColor()->setARGB('FFFF0000');
+            $hoja->fromArray($encabezado2, null, 'H6');
+            $hoja->fromArray($encabezado2, null, 'H6');
 
-            $styleArray = [
+            $hoja->getStyle('A5:M6')->getFill()
+                  ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                  ->getStartColor()->setARGB('bacbe6');
+
+            $borde = [
+
+                  'font' => [
+                        'bold' => true,
+                  ],
                   'borders' => [
                         'allBorders' => [
                               'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
                         ],
                   ],
             ];
+            $hoja->getStyle('A5:M6')->applyFromArray($borde);
 
-            $hoja->getStyle('A5:N6')->applyFromArray($styleArray);
+
+            $hoja->getPageSetup()
+                  ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+            $hoja->getPageSetup()
+                  ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
 
             $codigo = request('codigo');
             $fecha_inicio = request('fecha_inicio');
@@ -190,19 +207,19 @@ class ReporteArticulosController extends Controller
 
             foreach ($query as $item) {
                   $hoja->setCellValue('A' . $fila, $item->codigo)->getStyle('A' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('B' . $fila, $item->cod_ant)->getStyle('B' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('C' . $fila, $item->description)->getStyle('C' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('D' . $fila, $item->uni_med)->getStyle('D' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('E' . $fila, $item->partida)->getStyle('E' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('F' . $fila, $item->num_fac)->getStyle('F' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('G' . $fila, $item->detalle)->getStyle('G' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('H' . $fila, $item->p_unitario)->getStyle('H' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('I' . $fila, $item->p_unitario)->getStyle('I' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  //      $hoja->setCellValue('B' . $fila, $item->cod_ant)->getStyle('B' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('B' . $fila, $item->description)->getStyle('B' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('C' . $fila, $item->uni_med)->getStyle('C' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('D' . $fila, $item->partida)->getStyle('D' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('E' . $fila, $item->num_fac)->getStyle('E' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('F' . $fila, $item->detalle)->getStyle('F' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('G' . $fila, $item->p_unitario)->getStyle('G' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('H' . $fila, $item->ingreso)->getStyle('H' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('I' . $fila, '')->getStyle('I' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('J' . $fila, '')->getStyle('J' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('K' . $fila, '')->getStyle('K' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('L' . $fila, $item->t_ingreso)->getStyle('L' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('K' . $fila, $item->t_ingreso)->getStyle('K' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('L' . $fila, '')->getStyle('L' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('M' . $fila, '')->getStyle('M' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('N' . $fila, '')->getStyle('N' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $fila++;
             }
 
