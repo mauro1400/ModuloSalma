@@ -13,15 +13,19 @@ class ReporteArticulosController extends Controller
 
       public function inicio()
       {
-            $codig = DB::table('subarticles')->select('code')->get();
-            //dd($query);
+            
+            $codig = DB::table('materials')
+                  ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
+                  ->get();
             return view('reporte.ReporteArticulos.home', ["codig" => $codig]);
       }
 
       public function busquedaCodigo()
       {
-            $codig = DB::table('subarticles')->select('code')->get();
-            $porPagina = 10;
+            $codig = DB::table('materials')
+                  ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
+                  ->get();
+                  
             $codigo = request('codigo');
             $fecha_inicio = request('fecha_inicio');
             $fecha_fin = request('fecha_fin');
@@ -58,19 +62,20 @@ class ReporteArticulosController extends Controller
                      WHERE (ne.invalidate = 0 OR (ne.invalidate is null and ne.id is null)) 
                      AND es.subarticle_id = subarticle_id 
                      AND es.invalidate = 0 
-                     AND es.unit_cost > 0 
                      ORDER BY entry_date, note_entry_id, entry_subarticle_id) t1"))
                   ->leftJoin('subarticles as s', 's.id', '=', 't1.subarticle_id')
                   ->leftJoin('materials as m', 's.material_id', '=', 'm.id')
                   ->leftJoin('suppliers as su', 'su.id', '=', 't1.supplier_id')
                   ->where('s.created_at', '<=', "$fecha_fin")
                   ->where('s.created_at', '>=', "$fecha_inicio")
-                  ->where('s.code', '=', "$codigo")
+                  ->where('s.code', 'like', "%$codigo%")
                   ->where('s.status', '=', 1)
                   ->where('m.status', '=', 1)
                   ->paginate(100);
-
-            return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos]);
+                  
+                  //dd(substr(($codig[0]->code), 0, -1));
+                  //dd(substr((request('codigo')), 0, -1));
+                  return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos]);
       }
 
       public function exportarReporteArticulos()
@@ -82,13 +87,9 @@ class ReporteArticulosController extends Controller
             $documento = new Spreadsheet();
             $documento
                   ->getProperties()
-                  ->setCreator("Aquí va el creador, como cadena")
-                  ->setLastModifiedBy('Parzibyte') // última vez modificado por
-                  ->setTitle('Mi primer documento creado con PhpSpreadSheet')
-                  ->setSubject('El asunto')
-                  ->setDescription('Este documento fue generado para parzibyte.me')
-                  ->setKeywords('etiquetas o palabras clave separadas por espacios')
-                  ->setCategory('La categoría');
+                  ->setCreator("SENAVEX")
+                  ->setLastModifiedBy('SENAVEX') // última vez modificado por
+                  ->setTitle('Reporte Articulos');
             $hoja = $documento->getActiveSheet();
             $hoja->setTitle("Reporte de Articulos");
             $cabeceraFecha = ["Del $fecha_inicio Al $fecha_fin"];
@@ -108,12 +109,9 @@ class ReporteArticulosController extends Controller
 
             $hoja->getColumnDimension('B')->setAutoSize(true);
             $hoja->getColumnDimension('D')->setAutoSize(true);
-            $hoja->getColumnDimension('F')->setAutoSize(true);
 
             $hoja->getStyle('A5:M6')->getAlignment()->setWrapText(true);
-
-            $hoja->getStyle('A5:Z10000')->getFont()->setName('Arial');
-            $hoja->getStyle('A5:Z10000')->getFont()->setSize(8);
+            $hoja->getStyle('D')->getAlignment()->setWrapText(true);
 
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('A5:A6')->getStyle('A5:A6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('B5:B6')->getStyle('B5:B6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -122,7 +120,6 @@ class ReporteArticulosController extends Controller
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('E5:E6')->getStyle('E5:E6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('F5:F6')->getStyle('F5:F6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->fromArray($encabezado1, null, 'A5')->mergeCells('G5:G6')->getStyle('G5:G6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            //$hoja->fromArray($encabezado1, null, 'A5')->mergeCells('H5:H6')->getStyle('H5:H6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
             $hoja->fromArray($encabezado3, null, 'H5')->mergeCells('H5:J5')->getStyle('H5:J5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->fromArray($encabezado3, null, 'H5')->mergeCells('K5:M5')->getStyle('K5:M5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -148,11 +145,8 @@ class ReporteArticulosController extends Controller
             ];
             $hoja->getStyle('A5:M6')->applyFromArray($borde);
 
-
-            $hoja->getPageSetup()
-                  ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-            $hoja->getPageSetup()
-                  ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
+            $hoja->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+            $hoja->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
 
             $codigo = request('codigo');
             $fecha_inicio = request('fecha_inicio');
@@ -199,15 +193,13 @@ class ReporteArticulosController extends Controller
                   ->leftJoin('suppliers as su', 'su.id', '=', 't1.supplier_id')
                   ->where('s.created_at', '<=', "$fecha_fin")
                   ->where('s.created_at', '>=', "$fecha_inicio")
-                  ->where('s.code', '=', "$codigo")
+                  ->where('s.code', 'like', "%$codigo%")
                   ->where('s.status', '=', 1)
                   ->where('m.status', '=', 1)
                   ->get();
-            //dd($query[0]);
 
             foreach ($query as $item) {
                   $hoja->setCellValue('A' . $fila, $item->codigo)->getStyle('A' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  //      $hoja->setCellValue('B' . $fila, $item->cod_ant)->getStyle('B' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('B' . $fila, $item->description)->getStyle('B' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('C' . $fila, $item->uni_med)->getStyle('C' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('D' . $fila, $item->partida)->getStyle('D' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
@@ -230,6 +222,5 @@ class ReporteArticulosController extends Controller
             header('Cache-Control: max-age=0');
             $writer = IOFactory::createWriter($documento, 'Xlsx');
             $writer->save('php://output');
-            /*return Excel::download(new ReporteArticulosExport(request('codigo'),request('fecha_inicio'), request('fecha_fin')), 'users.xlsx');*/
       }
 }
