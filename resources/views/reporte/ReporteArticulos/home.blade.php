@@ -21,7 +21,7 @@
                                                 </b></label>
                                             <div class="col-md-2">
                                                 <select name="codigo" class="form-control" id="codigo">
-                                                    <option value="">Todo</option>
+                                                    <option value="0">Todo</option>
                                                     @foreach ($codig as $item)
                                                         <option value="{{ $item->code }}">{{ $item->codigo }}</option>
                                                     @endforeach
