@@ -16,6 +16,7 @@
             <th>Creado el</th>
         </tr>
     </thead>
+    @if (count($reportePartidas) != 0)
     <tbody>
         @foreach($reportePartidas as $item)
         <tr>
@@ -33,6 +34,16 @@
             <td>{{ $item->code}}</td>
             <td>{{ $item->created_at}}</td>
         </tr>
-        @endforeach
     </tbody>
+        @endforeach
+        @else
+        <tbody>
+            <tr>
+                <td colspan="14">
+                    @include('reporte.busqueda.noHayResultados')
+                </td>
+            </tr>
+        </tbody>
+        @endif
+       
 </table>

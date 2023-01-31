@@ -29,7 +29,7 @@
                                                     Fin:</b></label>
                                             <div class="col-md-2">
                                                 <input type="date" class="form-control me-2" name="fechaFin"
-                                                    id="fechaFin" value="{{ request('fechaFin') }}">
+                                                    id="fechaFin" value="<?php echo date('Y-m-d'); ?>">
                                             </div>
                                             <div class="col-md-2 col-sm-2">
                                                 <button class="btn btn-outline-success" type="submit"><i

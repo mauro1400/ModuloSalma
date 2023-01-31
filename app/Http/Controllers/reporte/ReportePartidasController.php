@@ -10,7 +10,10 @@ class ReportePartidasController extends Controller
 {
     public function index()
     {
-        $reporte = DB::select('SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante, 
+        $codig = DB::table('materials')
+                  ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
+                  ->get();
+        $reportePartidas = DB::select('SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante, 
         u1.name as administrador, d.name as departamento, s.description as articulo, sq.amount as pedido, 
         sq.amount_delivered as entregado, sq.total_delivered as total_entregado, s.code as codigo, m.code,r.created_at
         from requests r left join subarticle_requests sq on r.id=sq.request_id 
@@ -22,11 +25,16 @@ class ReportePartidasController extends Controller
         where sq.observacion is not null 
         and m.code in (32100,32200)
         order by DATE(r.created_at), s.code, s.description');
-        $reportePartidas['reportePartidas'] = $reporte;
-        return view('reporte.ReportePartidas.index', $reportePartidas);
+        //dd(count($reportePartidas));
+        return view('reporte.ReportePartidas.index',['reportePartidas'=>$reportePartidas,'codig'=>$codig]);
+
     }
     public function busquedaPartida()
     {
+        $codig = DB::table('materials')
+                  ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
+                  ->get();
+                  
         $partida = request('partida');
         $busqueda = DB::select('SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante, 
         u1.name as administrador, d.name as departamento, s.description as articulo, sq.amount as pedido, 
@@ -43,8 +51,8 @@ class ReportePartidasController extends Controller
         order by DATE(r.created_at), s.code, s.description', array(
             'partida' => "$partida"
         ));
-        $reportePartidas['reportePartidas'] = $busqueda;
-        return view('reporte.ReportePartidas.index', $reportePartidas);
+       // dd(request('partida'));
+        return view('reporte.ReportePartidas.index', ['reportePartidas'=>$busqueda,'codig'=>$codig]);
     }
     public function exportarReportePartidas()
     {

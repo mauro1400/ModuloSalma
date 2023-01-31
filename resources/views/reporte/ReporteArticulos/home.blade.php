@@ -37,7 +37,7 @@
                                             <label for="" class="col-md-1 col-form-label"><b>Hasta:</b></label>
                                             <div class="col-md-2 ">
                                                 <input type="date" class="form-control" name="fecha_fin" id="fecha_fin"
-                                                    placeholder="Buscar Fecha Fin..." value="{{ request('fecha_fin') }}">
+                                                    placeholder="Buscar Fecha Fin..." value="<?php echo date('Y-m-d'); ?>">
                                             </div>
 
                                             <div class="col-md-1 col-sm-2">

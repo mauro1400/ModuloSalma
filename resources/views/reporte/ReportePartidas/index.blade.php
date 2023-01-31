@@ -19,8 +19,12 @@
                                         <label for="" class="col-md-3 col-form-label"><b>Buscar Partida:
                                             </b></label>
                                         <div class="col-md-3">
-                                            <input type="text" class="form-control" name="partida"
-                                                placeholder="Buscar Articulos..." value="{{ request('partida') }}">
+                                            <select name="partida" class="form-control" id="partida">
+                                                <option value="">Todo</option>
+                                                @foreach ($codig as $item)
+                                                    <option value="{{ $item->code }}">{{ $item->codigo }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-md-1">
                                             <button class="btn btn-outline-success" type="submit"><i
