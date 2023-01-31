@@ -10,38 +10,39 @@
                         </b>
                     </div>
                     <div class="card-body">
-                        <div class="row justify-content-between">
-                            <div class="col-md-3">
+                        <div class="row g-0 text-center">
+                            <div class="col-md-2">
                                 @include('reporte.reporteCertificadoOrigen.app')
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-10">
                                 <div class="row">
                                     <form method="GET" action="{{ url('/reporte/busquedafechas') }}"
                                         accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                                         <div class="row">
                                             <span for="" class="col-md-1 col-form-label"><b>Fecha
-                                                    Inicio:&nbsp</b></span>
+                                                    Inicio:</b></span>
                                             <div class="col-md-2">
                                                 <input type="date" class="form-control me-2" name="fechaInicio"
-                                                    id="fechaInicio" value="{{ request('fechaInicio') }}">&nbsp
+                                                    id="fechaInicio" value="{{ request('fechaInicio') }}">
                                             </div>
                                             <label for="" class="col-md-1 col-form-label"><b>Fecha
-                                                    Fin:&nbsp</b></label>
+                                                    Fin:</b></label>
                                             <div class="col-md-2">
                                                 <input type="date" class="form-control me-2" name="fechaFin"
-                                                    id="fechaFin" value="{{ request('fechaFin') }}">&nbsp
+                                                    id="fechaFin" value="{{ request('fechaFin') }}">
                                             </div>
-                                            <div class="col-md-1">
-                                                <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
+                                            <div class="col-md-2 col-sm-2">
+                                                <button class="btn btn-outline-success" type="submit"><i
+                                                    class="fa-sharp fa-solid fa-magnifying-glass"></i> Buscar</button>
                                             </div>
-                                            <div class="col-md-1">
+                                            <div class="col-md-2 col-sm-2">
                                                 <a href="{{ url('/reporte/filtrofecha') }}"
-                                                    class="btn btn-outline-danger">Borrar</a>&nbsp
+                                                    class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i> Borrar</a>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-sm-2">
                                                 <a href="{{ url('/reporte/exportarReporteCOFechas?fechaInicio=' . request('fechaInicio') . '&fechaFin=' . request('fechaFin')) }}"
                                                     class="btn btn-outline-success">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
+                                                    <i class="fa-regular fa-file-excel"></i> Exportar</a>
                                             </div>
                                         </div>
                                     </form>
@@ -51,9 +52,10 @@
                     </div>
                 </div>
             </div>
-            <br />
+
             <div class="table-responsive">
                 @include('reporte.reporteCertificadoOrigen.tabla', $reporteCertificadoOrigen)
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

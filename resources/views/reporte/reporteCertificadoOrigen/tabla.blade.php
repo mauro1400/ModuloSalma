@@ -1,5 +1,5 @@
 <table class="table">
-    <thead class="table-dark">
+    <thead class="table-primary">
         <tr>
             <th>#</th>
             <th>Fecha de Entrega</th>

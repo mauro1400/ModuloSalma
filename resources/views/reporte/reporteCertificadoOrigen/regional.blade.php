@@ -10,21 +10,22 @@
                         </b>
                     </div>
                     <div class="card-body">
-                        <div class="row justify-content-between">
-                            <div class="col-md-3">
+                        <div class="row g-0 text-center">
+                            <div class="col-md-2">
                                 @include('reporte.reporteCertificadoOrigen.app')
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-10">
                                 <div class="row">
+                                    
                                     <form method="GET" action="{{ url('/reporte/busquedaregional') }}"
                                         accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
-                                        <div class="row">
-                                            <label for="DataList" class="col-md-2 col-form-label"><b>Buscar
-                                                    Regional:&nbsp</b></label>
-                                            <div class="col-md-3">
+                                        <div class="row g-0"><div class="col-md-3"><p></p></div>
+                                            <span for="DataList" class="col-md-1 col-form-label "><b>Buscar
+                                                    Regional:</b></span>
+                                            <div class="col-md-2 p-0">
                                                 <input type="text" class="form-control" list="opciones" id="DataList"
                                                     name="regional" id="regional" placeholder="Buscar Regional..."
-                                                    value="{{ request('regional') }}">&nbsp
+                                                    value="{{ request('regional') }}">
                                                 <datalist id="opciones">
                                                     <option value="REGIONAL COCHABAMBA">
                                                     <option value="REGIONAL EL ALTO">
@@ -42,17 +43,18 @@
                                                     <option value="DIRECCIÓN GENERAL EJECUTIVA">
                                                 </datalist>
                                             </div>
-                                            <div class="col-md-1">
-                                                <button class="btn btn-outline-success" type="submit">Buscar</button>&nbsp
+                                            <div class="col-md-2 p-0">
+                                                <button class="btn btn-outline-success" type="submit"><i
+                                                    class="fa-sharp fa-solid fa-magnifying-glass"></i> Buscar</button>
                                             </div>
-                                            <div class="col-md-1">
+                                            <div class="col-md-2 p-0">
                                                 <a href="{{ url('/reporte/filtroregional') }}"
-                                                    class="btn btn-outline-danger">Borrar</a>&nbsp
+                                                    class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i> Borrar</a>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 p-0 ">
                                                 <a href="{{ url('/reporte/exportarReporteCORegional?regional=' . request('regional')) }}"
                                                     class="btn btn-outline-success">                                
-                                                <i class="fa fa-plus" aria-hidden="true"></i> Exportar</a>
+                                                    <i class="fa-regular fa-file-excel"></i> Exportar</a>
                                             </div>
                                         </div>
                                     </form>
