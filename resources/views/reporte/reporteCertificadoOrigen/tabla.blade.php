@@ -17,25 +17,36 @@
             <th>Certificado</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach($reporteCertificadoOrigen as $item)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $item->fecha_entrega }}</td>
-            <td>{{ $item->nro_solicitud }}</td>
-            <td>{{ $item->solicitante }}</td>
-            <td>{{ $item->administrador }}</td>
-            <td>{{ $item->departamento }}</td>
-            <td>{{ $item->articulo }}</td>
-            <td>{{ $item->pedido }}</td>
-            <td>{{ $item->entregado }}</td>
-            <td>{{ $item->total_entregado }}</td>
-            <td>{{ $item->observacion }}</td>
-            <td>{{ $item->del }}</td>
-            <td>{{ $item->al }}</td>
-            <td>{{ $item->certificados}}</td>
-        </tr>
-        @endforeach
-    </tbody>
+    @if (count($reporteCertificadoOrigen) != 0)
+        <tbody>
+            @foreach ($reporteCertificadoOrigen as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->fecha_entrega }}</td>
+                    <td>{{ $item->nro_solicitud }}</td>
+                    <td>{{ $item->solicitante }}</td>
+                    <td>{{ $item->administrador }}</td>
+                    <td>{{ $item->departamento }}</td>
+                    <td>{{ $item->articulo }}</td>
+                    <td>{{ $item->pedido }}</td>
+                    <td>{{ $item->entregado }}</td>
+                    <td>{{ $item->total_entregado }}</td>
+                    <td>{{ $item->observacion }}</td>
+                    <td>{{ $item->del }}</td>
+                    <td>{{ $item->al }}</td>
+                    <td>{{ $item->certificados }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    @else
+        <tbody>
+            <tr>
+                <td colspan="14">
+                    @include('reporte.busqueda.noHayResultados')
+                </td>
+            </tr>
+        </tbody>
+    @endif
+
 
 </table>
