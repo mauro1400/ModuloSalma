@@ -24,7 +24,7 @@
         </tr>
     </thead>
     <tbody>
-        
+
         @foreach ($reporteArticulos as $item)
             <td>{{ $loop->iteration }}</td>
             <td>{{ $item->code_subarticle }}</td>
@@ -40,6 +40,15 @@
             <td>{{ $item->valorado_ingreso }}</td>
             <td>{{ $item->valorado_egreso }}</td>
             <td>{{ $item->valorado_final }}</td>
+            </tr>
+        @endforeach
+        @foreach ($totales as $items)
+            <tr>
+                <td colspan="10" class="text-center"><b>TOTALES</b></td>
+                <td><b>{{ $items->valorado_inicial }}</b></td>
+                <td><b>{{ $items->valorado_ingreso }}</b></td>
+                <td><b>{{ $items->valorado_egreso }}</b></td>
+                <td><b>{{ $items->valorado_final }}</b></td>
             </tr>
         @endforeach
     </tbody>

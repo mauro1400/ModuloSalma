@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\reporte;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
 
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Psr7\Request;
@@ -92,7 +95,7 @@ class ReporteArticulosController extends Controller
                                           saldo_final_v1(s2.id, cast(concat('$fecha_fin', ' 23:59:59') as datetime)) as saldo_final_fecha_2,
                                           saldo_final_v1(s2.id, cast(concat('$fecha_inicio', ' 00:00:00') as datetime)) as saldo_final_fecha_1
                                      from subarticles s2 inner join materials m2 on s2.material_id = m2.id left join entry_subarticles es on es.subarticle_id=s2.id and es.date between cast(concat('$fecha_inicio', ' 00:00:00') as datetime) and cast(concat('$fecha_fin', ' 23:59:59') as datetime)
-                                     where s2.status = 1
+                                     where s2.status in ('1','0')
                                      and m2.status = 1 
                                      and m2.code like ('%$codigo%') 
                                      group by s2.material_id,
@@ -176,7 +179,7 @@ class ReporteArticulosController extends Controller
                                           saldo_final_v1(s2.id, cast(concat('$fecha_fin', ' 23:59:59') as datetime)) as saldo_final_fecha_2,
                                           saldo_final_v1(s2.id, cast(concat('$fecha_inicio', ' 00:00:00') as datetime)) as saldo_final_fecha_1
                                      from subarticles s2 inner join materials m2 on s2.material_id = m2.id left join entry_subarticles es on es.subarticle_id=s2.id and es.date between cast(concat('$fecha_inicio', ' 00:00:00') as datetime) and cast(concat('$fecha_fin', ' 23:59:59') as datetime)
-                                     where s2.status = 1
+                                     where s2.status in ('1','0')
                                      and m2.status = 1 
                                      and m2.code like ('%$codigo%') 
                                                  group by s2.material_id,
@@ -192,7 +195,7 @@ class ReporteArticulosController extends Controller
             //dd($reporteArticulos[1]->code_subarticle);
             //dd($reporteArticulos);
             //dd($totales);
-            return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos]);
+            return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos,"totales"=>$totales]);
       }
 
       public function exportarReporteArticulos()
@@ -341,7 +344,7 @@ class ReporteArticulosController extends Controller
                                           saldo_final_v1(s2.id, cast(concat('$fecha_fin', ' 23:59:59') as datetime)) as saldo_final_fecha_2,
                                           saldo_final_v1(s2.id, cast(concat('$fecha_inicio', ' 00:00:00') as datetime)) as saldo_final_fecha_1
                                      from subarticles s2 inner join materials m2 on s2.material_id = m2.id left join entry_subarticles es on es.subarticle_id=s2.id and es.date between cast(concat('$fecha_inicio', ' 00:00:00') as datetime) and cast(concat('$fecha_fin', ' 23:59:59') as datetime)
-                                     where s2.status = 1
+                                     where s2.status in ('1','0')
                                      and m2.status = 1 
                                      and m2.code like ('%$codigo%') 
                                                  group by s2.material_id,
@@ -414,7 +417,7 @@ class ReporteArticulosController extends Controller
                                           saldo_final_v1(s2.id, cast(concat('$fecha_fin', ' 23:59:59') as datetime)) as saldo_final_fecha_2,
                                           saldo_final_v1(s2.id, cast(concat('$fecha_inicio', ' 00:00:00') as datetime)) as saldo_final_fecha_1
                                      from subarticles s2 inner join materials m2 on s2.material_id = m2.id left join entry_subarticles es on es.subarticle_id=s2.id and es.date between cast(concat('$fecha_inicio', ' 00:00:00') as datetime) and cast(concat('$fecha_fin', ' 23:59:59') as datetime)
-                                     where s2.status = 1
+                                     where s2.status in ('1','0')
                                      and m2.status = 1 
                                      and m2.code like ('%$codigo%') 
                                      group by s2.material_id,
@@ -449,16 +452,28 @@ class ReporteArticulosController extends Controller
                   $fila++;
                   $p=$fila;
             }
-           
+           //dd($p);
             foreach ($totales as $item) {
                   $hoja->setCellValue('J'.$p, $item->valorado_inicial)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('K'.$p, $item->valorado_ingreso)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('L'.$p, $item->valorado_egreso)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('M'.$p, $item->valorado_final)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             }
+            $hoja->getStyle('A'.$p.':M'.$p)->getNumberFormat()->setFormatCode('#,##0.00');
             $hoja->fromArray($cabecera0, null, 'A'.$p)->mergeCells('A'.$p.':I'.$p)->getStyle('A'.$p.':I'.$p)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->getStyle('A'.$p.':M'.$p)->applyFromArray($borde);
             $hoy = now();
+            //insercion de logo
+            $logo = new MemoryDrawing();
+$logo->setName('Image');
+$logo->setDescription('Image');
+$logo->setImageResource(imagecreatefromjpeg(public_path('logo/logo_senavex.jpg')));
+$logo->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+$logo->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
+$logo->setHeight(80);
+$logo->setCoordinates('A1');
+$logo->setWorksheet($hoja);
+
             $nombreDelDocumento = "Reporte_Articulos.$hoy.xlsx";
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment;filename="' . $nombreDelDocumento . '"');
