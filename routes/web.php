@@ -30,6 +30,6 @@ Route::get('/reporte/busquedacodigo',[ReporteArticulosController::class,'busqued
 Route::get('/reporte/exportarReporteArticulos', [ReporteArticulosController::class, 'exportarReporteArticulos']);//->name('')
 
 ////////////////////////////////////////////////////////////
-Route::resource('/reporte/reportePartidas', ReportePartidasController::class);//->name('')
+Route::get('/reporte/reportePartidas', [ReportePartidasController::class,'inicio']);//->name('')
 Route::get('/reporte/busquedapartida',[ReportePartidasController::class,'busquedaPartida']);//->name('')
 Route::get('/reporte/exportarReportePartida', [ReportePartidasController::class, 'exportarReportePartidas']);//->name('')

@@ -33,11 +33,12 @@
                                             </div>
                                             <div class="col-md-2 col-sm-2">
                                                 <button class="btn btn-outline-success" type="submit"><i
-                                                    class="fa-sharp fa-solid fa-magnifying-glass"></i> Buscar</button>
+                                                        class="fa-sharp fa-solid fa-magnifying-glass"></i> Buscar</button>
                                             </div>
                                             <div class="col-md-2 col-sm-2">
                                                 <a href="{{ url('/reporte/filtrofecha') }}"
-                                                    class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i> Borrar</a>
+                                                    class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>
+                                                    Borrar</a>
                                             </div>
                                             <div class="col-md-2 col-sm-2">
                                                 <a href="{{ url('/reporte/exportarReporteCOFechas?fechaInicio=' . request('fechaInicio') . '&fechaFin=' . request('fechaFin')) }}"
@@ -51,10 +52,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="table-responsive">
-                @include('reporte.reporteCertificadoOrigen.tabla', $reporteCertificadoOrigen)
             </div>
         </div>
     </div>

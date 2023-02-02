@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
@@ -195,7 +194,7 @@ class ReporteArticulosController extends Controller
             //dd($reporteArticulos[1]->code_subarticle);
             //dd($reporteArticulos);
             //dd($totales);
-            return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos,"totales"=>$totales]);
+            return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos, "totales" => $totales]);
       }
 
       public function exportarReporteArticulos()
@@ -223,8 +222,6 @@ class ReporteArticulosController extends Controller
 
             $hoja->getCell('A1')->getStyle()->getFont()->setSize(15);
             $hoja->getCell('A3')->getStyle()->getFont()->setSize(10);
-            
-            
 
             $hoja->fromArray($cabecera1, null, 'A1')->mergeCells('A1:M1')->getStyle('A1:M1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $hoja->fromArray($cabecera2, null, 'A3')->mergeCells('A3:M3')->getStyle('A3:M3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -266,7 +263,7 @@ class ReporteArticulosController extends Controller
                   ],
             ];
             $hoja->getStyle('A5:M6')->applyFromArray($borde);
-            
+
 
             $hoja->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
             $hoja->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
@@ -432,8 +429,8 @@ class ReporteArticulosController extends Controller
             ));
 
             //$hoja->setCellValue('A7', $query[0]->code_material)->getStyle('A7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            
-            
+
+
             //dd($query);
             foreach ($query as $item) {
                   $hoja->setCellValue('A' . $fila, $item->code_subarticle)->getStyle('A' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
@@ -450,29 +447,29 @@ class ReporteArticulosController extends Controller
                   $hoja->setCellValue('L' . $fila, $item->valorado_egreso)->getStyle('L' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('M' . $fila, $item->valorado_final)->getStyle('M' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $fila++;
-                  $p=$fila;
+                  $p = $fila;
             }
-           //dd($p);
+            //dd($p);
             foreach ($totales as $item) {
-                  $hoja->setCellValue('J'.$p, $item->valorado_inicial)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('K'.$p, $item->valorado_ingreso)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('L'.$p, $item->valorado_egreso)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('M'.$p, $item->valorado_final)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('J' . $p, $item->valorado_inicial)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('K' . $p, $item->valorado_ingreso)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('L' . $p, $item->valorado_egreso)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('M' . $p, $item->valorado_final)->getStyle('B7')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             }
-            $hoja->getStyle('A'.$p.':M'.$p)->getNumberFormat()->setFormatCode('#,##0.00');
-            $hoja->fromArray($cabecera0, null, 'A'.$p)->mergeCells('A'.$p.':I'.$p)->getStyle('A'.$p.':I'.$p)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $hoja->getStyle('A'.$p.':M'.$p)->applyFromArray($borde);
+            $hoja->getStyle('A' . $p . ':M' . $p)->getNumberFormat()->setFormatCode('#,##0.00');
+            $hoja->fromArray($cabecera0, null, 'A' . $p)->mergeCells('A' . $p . ':I' . $p)->getStyle('A' . $p . ':I' . $p)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $hoja->getStyle('A' . $p . ':M' . $p)->applyFromArray($borde);
             $hoy = now();
             //insercion de logo
             $logo = new MemoryDrawing();
-$logo->setName('Image');
-$logo->setDescription('Image');
-$logo->setImageResource(imagecreatefromjpeg(public_path('logo/logo_senavex.jpg')));
-$logo->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
-$logo->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
-$logo->setHeight(80);
-$logo->setCoordinates('A1');
-$logo->setWorksheet($hoja);
+            $logo->setName('Image');
+            $logo->setDescription('Image');
+            $logo->setImageResource(imagecreatefromjpeg(public_path('logo/logo_senavex.jpg')));
+            $logo->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+            $logo->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
+            $logo->setHeight(80);
+            $logo->setCoordinates('A1');
+            $logo->setWorksheet($hoja);
 
             $nombreDelDocumento = "Reporte_Articulos.$hoy.xlsx";
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

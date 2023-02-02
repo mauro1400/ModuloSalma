@@ -16,10 +16,13 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="row">
-                                    
+
                                     <form method="GET" action="{{ url('/reporte/busquedaregional') }}"
                                         accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
-                                        <div class="row g-0"><div class="col-md-3"><p></p></div>
+                                        <div class="row g-0">
+                                            <div class="col-md-3">
+                                                <p></p>
+                                            </div>
                                             <span for="DataList" class="col-md-1 col-form-label "><b>Buscar
                                                     Regional:</b></span>
                                             <div class="col-md-2 p-0">
@@ -31,15 +34,16 @@
                                             </div>
                                             <div class="col-md-2 p-0">
                                                 <button class="btn btn-outline-success" type="submit"><i
-                                                    class="fa-sharp fa-solid fa-magnifying-glass"></i> Buscar</button>
+                                                        class="fa-sharp fa-solid fa-magnifying-glass"></i> Buscar</button>
                                             </div>
                                             <div class="col-md-2 p-0">
                                                 <a href="{{ url('/reporte/filtroregional') }}"
-                                                    class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i> Borrar</a>
+                                                    class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>
+                                                    Borrar</a>
                                             </div>
                                             <div class="col-md-2 p-0 ">
                                                 <a href="{{ url('/reporte/exportarReporteCORegional?regional=' . request('regional')) }}"
-                                                    class="btn btn-outline-success">                                
+                                                    class="btn btn-outline-success">
                                                     <i class="fa-regular fa-file-excel"></i> Exportar</a>
                                             </div>
                                         </div>
@@ -49,9 +53,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="table-responsive">
-                @include('reporte.reporteCertificadoOrigen.tabla', $reporteCertificadoOrigen)
             </div>
         </div>
     </div>

@@ -1,3 +1,9 @@
+@if ($opcion == 1)
+    @include('reporte.reporteCertificadoOrigen.fecha')
+@else
+    @include('reporte.reporteCertificadoOrigen.regional')
+@endif
+
 <table class="table">
     <thead class="table-primary">
         <tr>
