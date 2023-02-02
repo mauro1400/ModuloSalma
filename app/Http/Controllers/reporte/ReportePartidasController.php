@@ -23,7 +23,7 @@ class ReportePartidasController extends Controller
         left join departments d on d.id=u.department_id 
         left join materials m on s.material_id = m.id 
         where sq.observacion is not null 
-        and m.code in (32100,32200)
+    
         order by DATE(r.created_at), s.code, s.description');
         //dd(count($reportePartidas));
         return view('reporte.ReportePartidas.index',['reportePartidas'=>$reportePartidas,'codig'=>$codig]);
@@ -46,12 +46,12 @@ class ReportePartidasController extends Controller
         left join departments d on d.id=u.department_id 
         left join materials m on s.material_id = m.id 
         where sq.observacion is not null 
-        and m.code in (32100,32200)
-        and m.code  LIKE :partida
+        and m.code  = :partida
         order by DATE(r.created_at), s.code, s.description', array(
             'partida' => "$partida"
         ));
-       // dd(request('partida'));
+        //dd(request('partida'));
+        //dd($busqueda);
         return view('reporte.ReportePartidas.index', ['reportePartidas'=>$busqueda,'codig'=>$codig]);
     }
     public function exportarReportePartidas()
