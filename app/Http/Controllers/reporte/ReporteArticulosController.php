@@ -35,6 +35,7 @@ class ReporteArticulosController extends Controller
 
             $reporteArticulos = DB::select(DB::raw(
                   "select material_id,
+                  round((((valorado_inicial/fisico_inicial)+p_unit)/2),2)as p_unitario,
                   code_material,
                   description_material,
                   id,
@@ -106,9 +107,8 @@ class ReporteArticulosController extends Controller
                             s2.unit) t1) t2
                                      where (fisico_inicial > 0 or fisico_ingreso > 0 or fisico_final > 0)) t3
            order by code_material, code_subarticle"
-
-
             ));
+
             $totales = DB::select(DB::raw("select 
             sum(fisico_inicial) as total_fisico_inicial,
             sum(fisico_ingreso) as fisico_ingreso,
@@ -353,9 +353,11 @@ class ReporteArticulosController extends Controller
                                         s2.unit) t1) t2
                                                  where (fisico_inicial > 0 or fisico_ingreso > 0 or fisico_final > 0)) t3
             order by code_material, code_subarticle)t4"));
+
             $query = DB::select(DB::raw(
                   "select material_id,
                   code_material,
+                  round((((valorado_inicial/fisico_inicial)+p_unit)/2),2)as p_unitario,
                   description_material,
                   id,
                   code_subarticle,
@@ -437,7 +439,7 @@ class ReporteArticulosController extends Controller
                   $hoja->setCellValue('B' . $fila, $item->description)->getStyle('B' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('C' . $fila, $item->description_material)->getStyle('C' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('D' . $fila, $item->unit)->getStyle('D' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                  $hoja->setCellValue('E' . $fila, $item->p_unit)->getStyle('E' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                  $hoja->setCellValue('E' . $fila, $item->p_unitario)->getStyle('E' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('F' . $fila, $item->fisico_inicial)->getStyle('F' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('G' . $fila, $item->fisico_ingreso)->getStyle('G' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                   $hoja->setCellValue('H' . $fila, $item->fisico_egreso)->getStyle('H' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
@@ -471,6 +473,8 @@ class ReporteArticulosController extends Controller
             $logo->setCoordinates('A1');
             $logo->setWorksheet($hoja);
 
+            $hoja->getPageSetup()->setScale(55);
+            
             $nombreDelDocumento = "Reporte_Articulos.$hoy.xlsx";
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment;filename="' . $nombreDelDocumento . '"');

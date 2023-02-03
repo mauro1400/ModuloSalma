@@ -139,6 +139,8 @@ class ReporteCertificadoOrigenController extends Controller
         $hoja = $documento->getActiveSheet();
         $hoja->setTitle("Rep-Cert-Orig-Reg");
 
+        $hoja->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+        $hoja->getPageSetup()->setScale(60);
 
         $cabecera1 = ["REPORTE CERTIFICADO DE ORIGEN"];
         $hoja->fromArray($cabecera1, null, 'A2')->mergeCells('A2:M2')->getStyle('A2:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -255,6 +257,9 @@ class ReporteCertificadoOrigenController extends Controller
             ->setTitle('Reporte Partidas');
         $hoja = $documento->getActiveSheet();
         $hoja->setTitle("Rep-Cert-de-Orig-Fechas");
+
+        $hoja->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+        $hoja->getPageSetup()->setScale(60);
 
         $cabecera1 = ["REPORTE CERTIFICADO DE ORIGEN"];
         $hoja->fromArray($cabecera1, null, 'A2')->mergeCells('A2:M2')->getStyle('A2:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);

@@ -56,6 +56,9 @@ class ReportePartidasController extends Controller
         $hoja->setTitle("Reporte de Partidas");
         $hoy = now();
 
+        $hoja->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+        $hoja->getPageSetup()->setScale(64);
+
         $cabecera1 = ["REPORTE DE PARTIDAS"];
         $hoja->fromArray($cabecera1, null, 'A2')->mergeCells('A2:L2')->getStyle('A2:L2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 

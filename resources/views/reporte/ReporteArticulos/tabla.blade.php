@@ -31,7 +31,7 @@
             <td>{{ $item->description }}</td>
             <td>{{ $item->description_material }}</td>
             <td>{{ $item->unit }}</td>
-            <td>{{ $item->p_unit }}</td>
+            <td>{{ $item->p_unitario }}</td>
             <td>{{ $item->fisico_inicial }}</td>
             <td>{{ $item->fisico_ingreso }}</td>
             <td>{{ $item->fisico_egreso }}</td>
