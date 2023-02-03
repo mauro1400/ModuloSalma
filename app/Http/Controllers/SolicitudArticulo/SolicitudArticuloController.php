@@ -35,7 +35,26 @@ class SolicitudArticuloController extends Controller
     {
         $solicitudarticulo = SolicitudArticulo::findOrFail($id);
 
-        return view('SolicitudArticulo.solicitud-articulo.edit', ['solicitudarticulo' => $solicitudarticulo]);
+        $solicitud = DB::table('subarticle_requests')
+            ->join('requests', 'subarticle_requests.request_id', '=', 'requests.id')
+            ->join('subarticles', 'subarticle_requests.subarticle_id', '=', 'subarticles.id')
+            ->select('subarticles.id', 'subarticles.description', 'subarticles.unit', 'requests.nro_solicitud', 'subarticle_requests.*')->get();
+        //dd($solicitudarticulo->id);
+        /*if(){
+
+           }
+           if(in_array($solicitudarticulo->id ,$solicitud[0]->id)){
+
+              
+           }
+        //dd($solicitudarticulo->id);*/
+        for ($i = 0; $i < count($solicitud); $i++) {
+            if($solicitudarticulo->id ==$solicitud[$i]->id ){
+                $descripcion = $solicitud[$i]->description;
+            }
+        }
+        
+        return view('SolicitudArticulo.solicitud-articulo.edit', ['solicitudarticulo' => $solicitudarticulo, 'descripcion'=>$descripcion]);
     }
 
 

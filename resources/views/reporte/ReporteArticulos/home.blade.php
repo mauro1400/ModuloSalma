@@ -11,10 +11,25 @@
                     </div>
                     <div class="card-body">
                         <div class="row g-0 text-center">
+                            <div class="col-md-12">
+                                <p><h4>Inventario General de Almacenes Físico Valorado desde <b>
+                                    @if ( request('fecha_inicio')!= null)
+                                    <?php
+                                    $nueva_fecha = date("d-m-Y", strtotime(request('fecha_inicio')));
+                                    echo $nueva_fecha;
+                                    ?></b> hasta <b> <?php
+                                        $nueva_fecha = date("d-m-Y", strtotime(request('fecha_fin')));
+                                        echo $nueva_fecha;
+                                        ?>
+                                    @endif
+                                        </b></h4></p>
+                            </div>
+                        </div>
+                        <div class="row g-0 text-center">
                             <div class="col-md-11">
                                 <div class="row g-0 text-center">
-                                    <form method="GET" action="{{ url('/reporte/busquedacodigo') }}" accept-charset="UTF-8"
-                                        class="form-inline my-2 my-lg-0 float-right" role="search">
+                                    <form method="GET" action="{{ url('/reporte/busquedacodigo') }}"
+                                        accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
 
                                         <div class="row g-0">
                                             <label for="" class="col-md-1 col-form-label"><b>Codigo:

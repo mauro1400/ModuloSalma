@@ -16,10 +16,12 @@ class ReporteArticulosController extends Controller
 
       public function inicio()
       {
-
+            $fecha_inicio = request('fecha_inicio');
+            $fecha_fin = request('fecha_fin');
             $codig = DB::table('materials')
                   ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
                   ->get();
+                  
             return view('reporte.ReporteArticulos.home', ["codig" => $codig]);
       }
 
@@ -193,7 +195,7 @@ class ReporteArticulosController extends Controller
             //dd(substr($reporteArticulos[1]->code_subarticle, 0, -1));
             //dd($reporteArticulos[1]->code_subarticle);
             //dd($reporteArticulos);
-            //dd($totales);
+            //dd($fecha_inicio);
             return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos, "totales" => $totales]);
       }
 
