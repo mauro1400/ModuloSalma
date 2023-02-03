@@ -1,5 +1,5 @@
 <table class="table">
-    <thead class="table-dark">
+    <thead class="table-primary">
         <tr>
             <th>Numero de solicitud</th>
             <th>Descripcion</th>
@@ -35,7 +35,7 @@
                 @endif
             </td>
             <td>
-                @if($item->estado == "0" or $item->estado == null)
+                @if($item->estado == "0" OR $item->estado == "2" )
                 <a href="{{ url('/SolicitudArticulo/solicitud-articulo/' . $item->id . '/edit') }}" title="Edit SolicitudArticulo" class="btn btn-warning btn-sm" role="button" aria-hidden="true"><i class="fa fa-pencil-square-o"></i> Editar</a>
                 @elseif($item->estado == "1")
                 <a href="{{ url('/SolicitudArticulo/solicitud-articulo/' . $item->id . '/edit') }}" title="Edit SolicitudArticulo" class="btn btn-warning btn-sm disabled" tabindex="-1" role="button" aria-hidden="true"><i class="fa fa-pencil-square-o"></i> Editar</a>
