@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use App\Models\ConsultaReportePartidas;
 
 class ReportePartidasController extends Controller
 {
@@ -19,6 +19,7 @@ class ReportePartidasController extends Controller
         //dd(count($reportePartidas));
         return view('reporte.ReportePartidas.home', ['codig' => $codig]);
     }
+
     public function busquedaPartida()
     {
         $codig = DB::table('materials')
@@ -26,24 +27,12 @@ class ReportePartidasController extends Controller
             ->get();
 
         $partida = request('partida');
-        $reportePartidas = DB::select('SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante, 
-        u1.name as administrador, d.name as departamento, s.description as articulo, sq.amount as pedido, 
-        sq.amount_delivered as entregado, sq.total_delivered as total_entregado, s.code as codigo, m.code,r.created_at
-        from requests r left join subarticle_requests sq on r.id=sq.request_id 
-        left join users u on r.user_id=u.id 
-        left join users u1 on r.admin_id=u1.id 
-        left join subarticles s on s.id=sq.subarticle_id 
-        left join departments d on d.id=u.department_id 
-        left join materials m on s.material_id = m.id 
-        where sq.observacion is not null 
-        and m.code  like :partida
-        order by DATE(r.created_at), s.code, s.description', array(
-            'partida' => "$partida"
-        ));
+        $reportePartidas = ConsultaReportePartidas::partida($partida);
         //dd(request('partida'));
         //dd($reportePartidas);
         return view('reporte.ReportePartidas.index', ['reportePartidas' => $reportePartidas, 'codig' => $codig]);
     }
+
     public function exportarReportePartidas()
     {
         $documento = new Spreadsheet();
@@ -105,20 +94,7 @@ class ReportePartidasController extends Controller
         $hoja->getColumnDimension('L')->setWidth(12);
 
         $partida = request('partida');
-        $busqueda = DB::select('SELECT r.delivery_date as fecha_entrega, r.nro_solicitud, u.name as solicitante, 
-        u1.name as administrador, d.name as departamento, s.description as articulo, sq.amount as pedido, 
-        sq.amount_delivered as entregado, sq.total_delivered as total_entregado, s.code as codigo, m.code,r.created_at
-        from requests r left join subarticle_requests sq on r.id=sq.request_id 
-        left join users u on r.user_id=u.id 
-        left join users u1 on r.admin_id=u1.id 
-        left join subarticles s on s.id=sq.subarticle_id 
-        left join departments d on d.id=u.department_id 
-        left join materials m on s.material_id = m.id 
-        where sq.observacion is not null 
-        and m.code  = :partida
-        order by DATE(r.created_at), s.code, s.description', array(
-            'partida' => "$partida"
-        ));
+        $busqueda = ConsultaReportePartidas::partida($partida);
         $fila = 6;
         foreach ($busqueda as $item) {
             $hoja->setCellValue('A' . $fila, $item->fecha_entrega)->getStyle('A' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);

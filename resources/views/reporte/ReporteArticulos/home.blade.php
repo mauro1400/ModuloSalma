@@ -11,18 +11,23 @@
                     </div>
                     <div class="card-body">
                         <div class="row g-0 text-center">
-                            <div class="col-md-12">
-                                <p><h4>Inventario General de Almacenes Físico Valorado desde <b>
-                                    @if ( request('fecha_inicio')!= null)
-                                    <?php
-                                    $nueva_fecha = date("d-m-Y", strtotime(request('fecha_inicio')));
-                                    echo $nueva_fecha;
-                                    ?></b> hasta <b> <?php
-                                        $nueva_fecha = date("d-m-Y", strtotime(request('fecha_fin')));
+                            <div class="col-md-S12">
+                                <p>
+                                <h4>Inventario General de Almacenes Físico Valorado
+                                    @if (request('fecha_inicio') != null)
+                                        desde
+                                        <b><?php
+                                        $nueva_fecha = date('d-m-Y', strtotime(request('fecha_inicio')));
+                                        echo $nueva_fecha;
+                                        ?></b>
+                                        hasta <b> <?php
+                                        $nueva_fecha = date('d-m-Y', strtotime(request('fecha_fin')));
                                         echo $nueva_fecha;
                                         ?>
                                     @endif
-                                        </b></h4></p>
+                                    </b>
+                                </h4>
+                                </p>
                             </div>
                         </div>
                         <div class="row g-0 text-center">
