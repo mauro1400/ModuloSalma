@@ -7,14 +7,16 @@ use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Models\ConsultaReporteArticulos;
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ReporteArticulosController extends Controller
 {
 
   public function inicio()
   {
-    
+
     $codig = DB::table('materials')
       ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
       ->get();
@@ -24,22 +26,27 @@ class ReporteArticulosController extends Controller
 
   public function busquedaCodigo()
   {
-    $codig = DB::table('materials')
-      ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
-      ->get();
+    try {
+      // Código que puede generar una excepción
+      $codig = DB::table('materials')
+        ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
+        ->get();
 
-    $codigo = request('codigo');
-    $fecha_inicio = request('fecha_inicio');
-    $fecha_fin = request('fecha_fin');
+      $codigo = request('codigo');
+      $fecha_inicio = request('fecha_inicio');
+      $fecha_fin = request('fecha_fin');
 
-    $reporteArticulos=ConsultaReporteArticulos::obtenerInformacion($codigo, $fecha_inicio, $fecha_fin);
-    
-    $totales = ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
-    //dd(substr($reporteArticulos[1]->code_subarticle, 0, -1));
-    //dd($reporteArticulos[1]->code_subarticle);
-    //dd($reporteArticulos);
-    //dd($fecha_inicio);
-    return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos, "totales" => $totales]);
+      $reporteArticulos = ConsultaReporteArticulos::obtenerInformacion($codigo, $fecha_inicio, $fecha_fin);
+
+      $totales = ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
+      
+      return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos, "totales" => $totales]);
+    } catch (\Exception $e) {
+      return response()->json([
+          'message' => 'Error interno',
+          'errors' => ['exception' => [$e->getMessage()]]
+      ], 500);
+    }
   }
 
   public function exportarReporteArticulos()
@@ -118,10 +125,10 @@ class ReporteArticulosController extends Controller
     $fecha_fin = request('fecha_fin');
     $fila = 7;
 
-    $totales =ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
+    $totales = ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
 
     $query = ConsultaReporteArticulos::obtenerInformacion($codigo, $fecha_inicio, $fecha_fin);
-    dd($query);
+
     foreach ($query as $item) {
       $hoja->setCellValue('A' . $fila, $item->code_subarticle)->getStyle('A' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
       $hoja->setCellValue('B' . $fila, $item->description)->getStyle('B' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
