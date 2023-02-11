@@ -31,9 +31,6 @@ class ReporteCertificadoOrigenController extends Controller
         $opcion = 2;
         $regional = request('regional');
         $busquedaRegional = ConsultaReporteCertificadosOrigen::regional($regional);
-        //dd($busquedaRegional);
-        //dd(count($busquedaRegional));
-        //dd($opcion);
         return view('reporte.reporteCertificadoOrigen.tabla', ['reporteCertificadoOrigen' => $busquedaRegional, 'codigoRegional' => $codigoRegional, "opcion" => $opcion]);
     }
 

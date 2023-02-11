@@ -14,7 +14,7 @@ class ReporteArticulosController extends Controller
 
   public function inicio()
   {
-    
+
     $codig = DB::table('materials')
       ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
       ->get();
@@ -24,22 +24,25 @@ class ReporteArticulosController extends Controller
 
   public function busquedaCodigo()
   {
-    $codig = DB::table('materials')
-      ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
-      ->get();
+    try {
+      $codig = DB::table('materials')
+        ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
+        ->get();
 
-    $codigo = request('codigo');
-    $fecha_inicio = request('fecha_inicio');
-    $fecha_fin = request('fecha_fin');
+      $codigo = request('codigo');
+      $fecha_inicio = request('fecha_inicio');
+      $fecha_fin = request('fecha_fin');
 
-    $reporteArticulos=ConsultaReporteArticulos::obtenerInformacion($codigo, $fecha_inicio, $fecha_fin);
-    
-    $totales = ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
-    //dd(substr($reporteArticulos[1]->code_subarticle, 0, -1));
-    //dd($reporteArticulos[1]->code_subarticle);
-    //dd($reporteArticulos);
-    //dd($fecha_inicio);
-    return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos, "totales" => $totales]);
+      $reporteArticulos = ConsultaReporteArticulos::obtenerInformacion($codigo, $fecha_inicio, $fecha_fin);
+
+      $totales = ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
+
+      return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos, "totales" => $totales]);
+    } catch (\Exception $e) {
+      //dd($e->getMessage());
+
+      return view('reporte.Busqueda.error_mensaje', ["error" => $e->getMessage(),"codig" => $codig]);
+    }
   }
 
   public function exportarReporteArticulos()
@@ -118,7 +121,7 @@ class ReporteArticulosController extends Controller
     $fecha_fin = request('fecha_fin');
     $fila = 7;
 
-    $totales =ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
+    $totales = ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
 
     $query = ConsultaReporteArticulos::obtenerInformacion($codigo, $fecha_inicio, $fecha_fin);
     dd($query);
