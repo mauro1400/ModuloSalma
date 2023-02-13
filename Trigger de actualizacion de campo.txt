@@ -1,0 +1,18 @@
+
+CREATE OR REPLACE TRIGGER `tr_actulizar_monto` BEFORE UPDATE ON `subarticle_requests` FOR EACH ROW BEGIN
+	IF NEW.estado = '2'  THEN 
+    SET NEW.montoP = NEW.amount,
+    NEW.amount = OLD.amount,
+    NEW.updated_at= NOW(), NEW.estado = 0;
+    ELSE IF NEW.estado = '1' THEN
+    SET NEW.amount = OLD.montoP,
+	NEW.montoP = OLD.amount,
+    NEW.updated_at= NOW(), NEW.estado = 1;
+    ELSE IF NEW.estado = '0'  THEN 
+    SET NEW.montoP = NEW.amount,
+    NEW.amount = OLD.amount,
+    NEW.updated_at= NOW(), NEW.estado = 0;
+    END IF;
+    END IF;
+    END IF;
+END;

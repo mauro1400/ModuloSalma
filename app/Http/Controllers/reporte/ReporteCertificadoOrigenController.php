@@ -18,20 +18,28 @@ class ReporteCertificadoOrigenController extends Controller
 
     public function busquedaFechas()
     {
-        $opcion = 1;
-        $fechaInicio = request('fechaInicio');
-        $fechaFin = request('fechaFin');
-        $busquedaFechas = ConsultaReporteCertificadosOrigen::fecha($fechaInicio, $fechaFin);
-        //dd($opcion);
-        return view('reporte.reporteCertificadoOrigen.tabla', ["reporteCertificadoOrigen" => $busquedaFechas, "opcion" => $opcion]);
+        try {
+            $opcion = 1;
+            $fechaInicio = request('fechaInicio');
+            $fechaFin = request('fechaFin');
+            $busquedaFechas = ConsultaReporteCertificadosOrigen::fecha($fechaInicio, $fechaFin);
+            //dd($opcion);
+            return view('reporte.reporteCertificadoOrigen.tabla', ["reporteCertificadoOrigen" => $busquedaFechas, "opcion" => $opcion]);
+        } catch (\Exception $e) {
+            return view('reporte.reporteCertificadoOrigen.fecha', ["error" => $e->getMessage()]);
+        }
     }
     public function busquedaRegional()
     {
-        $codigoRegional = DB::table('departments')->select('name')->get();
-        $opcion = 2;
-        $regional = request('regional');
-        $busquedaRegional = ConsultaReporteCertificadosOrigen::regional($regional);
-        return view('reporte.reporteCertificadoOrigen.tabla', ['reporteCertificadoOrigen' => $busquedaRegional, 'codigoRegional' => $codigoRegional, "opcion" => $opcion]);
+        try {
+            $codigoRegional = DB::table('departments')->select('name')->get();
+            $opcion = 2;
+            $regional = request('regional');
+            $busquedaRegional = ConsultaReporteCertificadosOrigen::regional($regional);
+            return view('reporte.reporteCertificadoOrigen.tabla', ['reporteCertificadoOrigen' => $busquedaRegional, 'codigoRegional' => $codigoRegional, "opcion" => $opcion]);
+        } catch (\Exception $e) {
+            return view('reporte.reporteCertificadoOrigen.regional', ["error" => $e->getMessage(),'codigoRegional' => $codigoRegional]);
+        }
     }
 
     public function filtroFecha()

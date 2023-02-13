@@ -22,15 +22,19 @@ class ReportePartidasController extends Controller
 
     public function busquedaPartida()
     {
-        $codig = DB::table('materials')
-            ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
-            ->get();
+        try {
+            $codig = DB::table('materials')
+                ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
+                ->get();
 
-        $partida = request('partida');
-        $reportePartidas = ConsultaReportePartidas::partida($partida);
-        //dd(request('partida'));
-        //dd($reportePartidas);
-        return view('reporte.ReportePartidas.index', ['reportePartidas' => $reportePartidas, 'codig' => $codig]);
+            $partida = request('partida');
+            $reportePartidas = ConsultaReportePartidas::partida($partida);
+            //dd(request('partida'));
+            //dd($reportePartidas);
+            return view('reporte.ReportePartidas.index', ['reportePartidas' => $reportePartidas, 'codig' => $codig]);
+        } catch (\Exception $e) {
+            return view('reporte.ReportePartidas.home', ["error" => $e->getMessage(), 'codig' => $codig]);
+        }
     }
 
     public function exportarReportePartidas()
@@ -75,13 +79,13 @@ class ReportePartidasController extends Controller
             ],
         ];
         $hoja->getStyle('A5:L5')->applyFromArray($borde);
-     
+
         $hoja->getCell('A2')->getStyle()->getFont()->setSize(15);
         $hoja->getCell('A3')->getStyle()->getFont()->setSize(10);
 
         $hoja->fromArray($encabezado, null, 'A5');
         $hoja->getStyle('A5:L5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-        
+
         $hoja->getColumnDimension('A')->setWidth(12);
         $hoja->getColumnDimension('B')->setWidth(10);
         $hoja->getColumnDimension('C')->setWidth(25);
@@ -109,7 +113,7 @@ class ReportePartidasController extends Controller
             $hoja->setCellValue('J' . $fila, $item->codigo)->getStyle('J' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $hoja->setCellValue('K' . $fila, $item->code)->getStyle('K' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $hoja->setCellValue('L' . $fila, $item->created_at)->getStyle('L' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            $hoja->getStyle('A'.$fila.':L'.$fila)->getAlignment()->setWrapText(true);
+            $hoja->getStyle('A' . $fila . ':L' . $fila)->getAlignment()->setWrapText(true);
             $fila++;
         }
         $logo = new MemoryDrawing();

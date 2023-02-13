@@ -14,11 +14,10 @@ class ReporteArticulosController extends Controller
 
   public function inicio()
   {
-
+     //Convertir el timestamp resultante en una fecha legible
     $codig = DB::table('materials')
       ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
       ->get();
-
     return view('reporte.ReporteArticulos.home', ["codig" => $codig]);
   }
 
@@ -28,7 +27,10 @@ class ReporteArticulosController extends Controller
       $codig = DB::table('materials')
         ->select('materials.code', DB::raw("CONCAT(materials.code,'-',materials.description) as codigo"))
         ->get();
-
+        $fecha_actual = time();    // Obtener la fecha actual como timestamp
+        $resta_fecha= $fecha_actual - (30 * 24 * 60 * 60);    // Restar un mes (30 días) en segundos
+        $fecha = date("Y-m-d", $resta_fecha);    // Convertir el timestamp resultante en una fecha legible
+    
       $codigo = request('codigo');
       $fecha_inicio = request('fecha_inicio');
       $fecha_fin = request('fecha_fin');
@@ -37,11 +39,9 @@ class ReporteArticulosController extends Controller
 
       $totales = ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
 
-      return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos, "totales" => $totales]);
+      return view('reporte.ReporteArticulos.index', ["codig" => $codig, "reporteArticulos" => $reporteArticulos, "totales" => $totales,"fecha"=>$fecha]);
     } catch (\Exception $e) {
-      //dd($e->getMessage());
-
-      return view('reporte.Busqueda.error_mensaje', ["error" => $e->getMessage(),"codig" => $codig]);
+      return view('reporte.ReporteArticulos.home', ["error" => $e->getMessage(), "codig" => $codig,"fecha"=>$fecha]);
     }
   }
 

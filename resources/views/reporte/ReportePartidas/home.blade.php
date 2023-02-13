@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('reporte.Busqueda.error_mensaje')
 @section('content')
     <div class="container-fluid">
         <div class="row">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('reporte.Busqueda.error_mensaje')
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -49,9 +49,13 @@
                                             </div>
                                             <span for="" class="col-md-1 col-form-label"><b>Desde: </b></span>
                                             <div class="col-md-2">
+                                                <?php $fecha_actual = time(); // Obtener la fecha actual como timestamp
+                                                $resta_fecha = $fecha_actual - 30 * 24 * 60 * 60; // Restar un mes (30 días) en segundos
+                                                $fecha = date('Y-m-d', $resta_fecha); // Convertir el timestamp resultante en una fecha legible
+                                                ?>
                                                 <input type="date" class="form-control" name="fecha_inicio"
                                                     id="fecha_inicio" placeholder="Buscar Fecaha Inicio..."
-                                                    value="{{ request('fecha_inicio') }}">
+                                                    value="<?php echo $fecha?>">
                                             </div>
 
                                             <label for="" class="col-md-1 col-form-label"><b>Hasta:</b></label>
