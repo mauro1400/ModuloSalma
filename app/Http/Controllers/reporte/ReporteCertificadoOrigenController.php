@@ -72,17 +72,17 @@ class ReporteCertificadoOrigenController extends Controller
         $hoja->getPageSetup()->setScale(60);
 
         $cabecera1 = ["REPORTE CERTIFICADO DE ORIGEN"];
-        $hoja->fromArray($cabecera1, null, 'A2')->mergeCells('A2:M2')->getStyle('A2:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $hoja->fromArray($cabecera1, null, 'A2')->mergeCells('A2:K2')->getStyle('A2:K2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         $cabeceraFecha = ["Unidad: $regional"];
-        $hoja->fromArray($cabeceraFecha, null, 'A3')->mergeCells('A3:M3')->getStyle('A3:M3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $hoja->fromArray($cabeceraFecha, null, 'A3')->mergeCells('A3:K3')->getStyle('A3:K3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-        $encabezado = ["Fecha de Entrega", "Nro Solicitud", "Solicitante ", "Administrador", "Departamento", "Articulo", "Block Certificado", "Entregado", "Total Entregado", "Observacion", "Del", "Al", "Certificado",];
-        $hoja->getStyle('A5:M5')->getFill()
+        $encabezado = ["Fecha de Entrega", "Nro Solicitud", "Solicitante ", "Administrador", "Departamento", "Articulo", "Block Certificado", "Entregado", "Observacion", "Del", "Al",];
+        $hoja->getStyle('A5:K5')->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()->setARGB('bacbe6');
 
-        $hoja->getStyle('A5:M5')->getAlignment()->setWrapText(true);
+        $hoja->getStyle('A5:K5')->getAlignment()->setWrapText(true);
         $borde = [
 
             'font' => [
@@ -94,13 +94,13 @@ class ReporteCertificadoOrigenController extends Controller
                 ],
             ],
         ];
-        $hoja->getStyle('A5:M5')->applyFromArray($borde);
+        $hoja->getStyle('A5:K5')->applyFromArray($borde);
 
         $hoja->getCell('A2')->getStyle()->getFont()->setSize(15);
         $hoja->getCell('A3')->getStyle()->getFont()->setSize(10);
 
         $hoja->fromArray($encabezado, null, 'A5');
-        $hoja->getStyle('A5:M5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $hoja->getStyle('A5:K5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         $hoja->getColumnDimension('A')->setWidth(12);
         $hoja->getColumnDimension('B')->setWidth(10);
@@ -109,10 +109,10 @@ class ReporteCertificadoOrigenController extends Controller
         $hoja->getColumnDimension('E')->setWidth(25);
         $hoja->getColumnDimension('F')->setWidth(25);
         $hoja->getColumnDimension('H')->setWidth(12);
-        $hoja->getColumnDimension('I')->setWidth(12);
-        $hoja->getColumnDimension('J')->setWidth(15);
+        $hoja->getColumnDimension('I')->setWidth(15);
+        $hoja->getColumnDimension('J')->setWidth(12);
         $hoja->getColumnDimension('G')->setWidth(12);
-        $hoja->getColumnDimension('M')->setWidth(12);
+        
 
         $busquedaRegional = ConsultaReporteCertificadosOrigen::regional($regional);
 
@@ -126,12 +126,10 @@ class ReporteCertificadoOrigenController extends Controller
             $hoja->setCellValue('F' . $fila, $item->articulo)->getStyle('F' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $hoja->setCellValue('G' . $fila, $item->pedido)->getStyle('G' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $hoja->setCellValue('H' . $fila, $item->entregado)->getStyle('H' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            $hoja->setCellValue('I' . $fila, $item->total_entregado)->getStyle('I' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            $hoja->setCellValue('J' . $fila, $item->observacion)->getStyle('J' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            $hoja->setCellValue('K' . $fila, $item->del)->getStyle('K' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            $hoja->setCellValue('L' . $fila, $item->al)->getStyle('L' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            $hoja->setCellValue('M' . $fila, $item->certificados)->getStyle('M' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            $hoja->getStyle('A' . $fila . ':M' . $fila)->getAlignment()->setWrapText(true);
+            $hoja->setCellValue('I' . $fila, $item->observacion)->getStyle('I' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $hoja->setCellValue('J' . $fila, $item->del)->getStyle('J' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $hoja->setCellValue('K' . $fila, $item->al)->getStyle('K' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $hoja->getStyle('A' . $fila . ':K' . $fila)->getAlignment()->setWrapText(true);
             $fila++;
         }
 

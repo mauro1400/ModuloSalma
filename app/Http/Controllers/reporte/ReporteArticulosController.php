@@ -124,7 +124,7 @@ class ReporteArticulosController extends Controller
     $totales = ConsultaReporteArticulos::total($codigo, $fecha_inicio, $fecha_fin);
 
     $query = ConsultaReporteArticulos::obtenerInformacion($codigo, $fecha_inicio, $fecha_fin);
-    dd($query);
+    
     foreach ($query as $item) {
       $hoja->setCellValue('A' . $fila, $item->code_subarticle)->getStyle('A' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
       $hoja->setCellValue('B' . $fila, $item->description)->getStyle('B' . $fila)->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);

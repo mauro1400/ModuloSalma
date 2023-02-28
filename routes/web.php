@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Formulario\Formulario;
 use App\Http\Controllers\reporte\ReporteArticulosController;
 use App\Http\Controllers\reporte\ReporteCertificadoOrigenController;
 use App\Http\Controllers\reporte\ReportePartidasController;
 use App\Http\Controllers\SolicitudArticulo\SolicitudArticuloController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,3 +35,9 @@ Route::get('/reporte/exportarReporteArticulos', [ReporteArticulosController::cla
 Route::get('/reporte/reportePartidas', [ReportePartidasController::class,'inicio']);//->name('')
 Route::get('/reporte/busquedapartida',[ReportePartidasController::class,'busquedaPartida']);//->name('')
 Route::get('/reporte/exportarReportePartida', [ReportePartidasController::class, 'exportarReportePartidas']);//->name('')
+
+Route::get('/formulario', [Formulario::class, 'index'])->name('formulario.index');
+Route::get('/exportar-pdf', [Formulario::class, 'exportarPDF'])->name('tabla.pdf');
+
+
+

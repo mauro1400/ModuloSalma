@@ -11,7 +11,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Latest compiled and minified CSS -->
-
+   
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <!-- Styles -->
     <!-- JavaScript Bundle with Popper -->
@@ -49,8 +49,10 @@
                         <li><a class="nav-link" href="{{ url('/SolicitudArticulo/solicitud-articulo') }}">
                                 <h6><b>|</b> Solicitud de Articulo</h6>
                             </a></li>
+                        <li><a class="nav-link" href="{{ url('/formulario') }}">
+                                <h6><b>|</b> Formulario de Inexistencia</h6>
+                            </a></li>
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -88,6 +90,8 @@
         </main>
         @yield('reporte')
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    @stack('scripts')
 </body>
 
 </html>

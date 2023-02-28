@@ -16,11 +16,9 @@
             <th>Articulo</th>
             <th>Block Certificado</th>
             <th>Entregado</th>
-            <th>Total Entregado</th>
             <th>Observacion</th>
             <th>Del</th>
             <th>Al</th>
-            <th>Certificado</th>
         </tr>
     </thead>
     @if (count($reporteCertificadoOrigen) != 0)
@@ -36,11 +34,9 @@
                     <td>{{ $item->articulo }}</td>
                     <td>{{ $item->pedido }}</td>
                     <td>{{ $item->entregado }}</td>
-                    <td>{{ $item->total_entregado }}</td>
                     <td>{{ $item->observacion }}</td>
                     <td>{{ $item->del }}</td>
                     <td>{{ $item->al }}</td>
-                    <td>{{ $item->certificados }}</td>
                 </tr>
             @endforeach
         </tbody>
