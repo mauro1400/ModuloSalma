@@ -41,7 +41,7 @@
                                                     class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>
                                                     Borrar</a>
                                             </div>
-                                            <div class="col-md-2 p-0 ">
+                                            <div class="col-md-2 p-0">
                                                 <a href="{{ url('/reporte/exportarReporteCORegional?regional=' . request('regional')) }}"
                                                     class="btn btn-outline-success">
                                                     <i class="fa-regular fa-file-excel"></i> Exportar</a>

@@ -37,7 +37,8 @@ Route::get('/reporte/busquedapartida',[ReportePartidasController::class,'busqued
 Route::get('/reporte/exportarReportePartida', [ReportePartidasController::class, 'exportarReportePartidas']);//->name('')
 
 Route::get('/formulario', [Formulario::class, 'index'])->name('formulario.index');
-Route::get('/exportar-pdf', [Formulario::class, 'exportarPDF'])->name('tabla.pdf');
+Route::post('/guardar-datos', [Formulario::class,'guardarDatos']);
+
 
 
 
